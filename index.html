@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="preload" as="image" href="https://cdn.jsdelivr.net/gh/lzumily/HG_cards@main/cards/卡背-起源电竞.webp">
-<link rel="preload" as="image" href="https://cdn.jsdelivr.net/gh/lzumily/HG_cards@main/pic/back.webp">
+<link rel="preload" as="image" href="cards/卡背-起源电竞.webp">
+<link rel="preload" as="image" href="pic/back.webp">
 <title>王座的游戏 · 起源电竞</title>
 <style>
-@font-face{font-family:'HY SunShangXiang';src:url('https://cdn.jsdelivr.net/gh/lzumily/HG_cards@main/font/汉仪孙尚香简.ttf') format('truetype');font-weight:400 900;font-display:swap}
-@font-face{font-family:'HY MingYue';src:url('https://cdn.jsdelivr.net/gh/lzumily/HG_cards@main/font/汉仪明月 85W.ttf') format('truetype');font-weight:400 900;font-display:swap}
-@font-face{font-family:'HY QiHei';src:url('https://cdn.jsdelivr.net/gh/lzumily/HG_cards@main/font/汉仪旗黑 75简.ttf') format('truetype');font-weight:400 900;font-display:swap}
+@font-face{font-family:'HY SunShangXiang';src:url('font/汉仪孙尚香简.ttf') format('truetype');font-weight:400 900;font-display:swap}
+@font-face{font-family:'HY MingYue';src:url('font/汉仪明月 85W.ttf') format('truetype');font-weight:400 900;font-display:swap}
+@font-face{font-family:'HY QiHei';src:url('font/汉仪旗黑 75简.ttf') format('truetype');font-weight:400 900;font-display:swap}
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --gold:#c9a45c;--gold-hi:#f0d9a0;--gold-dim:rgba(201,164,92,.4);--gold-line:rgba(201,164,92,.55);
@@ -25,7 +25,7 @@
 }
 html,body{height:100%}
 body{font-family:var(--qihei);color:var(--ink);overflow:hidden;-webkit-font-smoothing:antialiased;background:#0a0705}
-body::after{content:'';position:fixed;inset:0;z-index:3;pointer-events:none;background:url('https://cdn.jsdelivr.net/gh/lzumily/HG_cards@main/pic/LOGO.png') center center no-repeat;background-size:55vmin;opacity:.05;filter:grayscale(1)}
+body::after{content:'';position:fixed;inset:0;z-index:3;pointer-events:none;background:url('pic/LOGO.png') center center no-repeat;background-size:55vmin;opacity:.05;filter:grayscale(1)}
 
 /* ============ 视图容器 ============ */
 .view{position:fixed;inset:0;display:none;flex-direction:column;z-index:2;overflow-y:auto}
@@ -33,7 +33,7 @@ body::after{content:'';position:fixed;inset:0;z-index:3;pointer-events:none;back
 @keyframes viewIn{from{opacity:0;transform:scale(1.02)}to{opacity:1;transform:none}}
 
 /* ============ 开始页 ============ */
-#view-start{background:url('https://cdn.jsdelivr.net/gh/lzumily/HG_cards@main/pic/back.webp') center/cover no-repeat;align-items:center;justify-content:center;text-align:center}
+#view-start{background:url('pic/back.webp') center/cover no-repeat;align-items:center;justify-content:center;text-align:center}
 #view-start::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,transparent 30%,rgba(0,0,0,.78) 100%);z-index:1}
 #view-start>*{position:relative;z-index:2}
 .start-title{
@@ -85,7 +85,7 @@ body::after{content:'';position:fixed;inset:0;z-index:3;pointer-events:none;back
 .start-op{margin-top:16px;font-size:12.5px;letter-spacing:.12em;color:var(--ink3)}
 
 /* ============ 登记页 ============ */
-#view-register{background:url('https://cdn.jsdelivr.net/gh/lzumily/HG_cards@main/pic/back.webp') center/cover no-repeat;align-items:center;justify-content:center}
+#view-register{background:url('pic/back.webp') center/cover no-repeat;align-items:center;justify-content:center}
 #view-register::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,transparent 25%,rgba(0,0,0,.8) 100%);z-index:1}
 #view-register>*{position:relative;z-index:2}
 .paper{
@@ -114,7 +114,7 @@ body::after{content:'';position:fixed;inset:0;z-index:3;pointer-events:none;back
 .paper-btn:active{transform:none}
 
 /* ============ 抽卡页 ============ */
-#view-draw{background:url('https://cdn.jsdelivr.net/gh/lzumily/HG_cards@main/pic/back.webp') center/cover no-repeat}
+#view-draw{background:url('pic/back.webp') center/cover no-repeat}
 #view-draw::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,transparent 20%,rgba(0,0,0,.82) 100%);z-index:1}
 #view-draw>*{position:relative;z-index:2}
 .draw-top{display:flex;align-items:center;padding:22px 34px;gap:16px}
@@ -123,7 +123,7 @@ body::after{content:'';position:fixed;inset:0;z-index:3;pointer-events:none;back
 /* 牌堆 */
 .deck-zone{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center}
 .deck-stack{width:150px;height:216px;position:relative;cursor:pointer;perspective:700px;margin-bottom:34px}
-.deck-card{position:absolute;left:0;top:0;width:150px;height:216px;border-radius:8px;background:url('https://cdn.jsdelivr.net/gh/lzumily/HG_cards@main/cards/卡背-起源电竞.webp') center/cover no-repeat;border:1px solid var(--gold-line);box-shadow:0 12px 28px rgba(0,0,0,.6),inset 0 0 16px rgba(0,0,0,.5)}
+.deck-card{position:absolute;left:0;top:0;width:150px;height:216px;border-radius:8px;background:url('cards/卡背-起源电竞.webp') center/cover no-repeat;border:1px solid var(--gold-line);box-shadow:0 12px 28px rgba(0,0,0,.6),inset 0 0 16px rgba(0,0,0,.5)}
 .deck-stack .d1{transform:translate(-7px,8px) rotate(-2.5deg);opacity:.5}
 .deck-stack .d2{transform:translate(-2px,3px) rotate(-1deg);opacity:.75}
 .deck-stack .d3{transform:none;opacity:1}
@@ -138,7 +138,7 @@ body::after{content:'';position:fixed;inset:0;z-index:3;pointer-events:none;back
 /* 左侧契约律法栏（背景：pic/tab-compressed.jpg） */
 .law-panel{
   width:360px;flex:0 0 auto;padding:0;overflow-y:auto;position:relative;
-  background:url('https://cdn.jsdelivr.net/gh/lzumily/HG_cards@main/pic/tab-compressed.jpg') center/cover no-repeat;
+  background:url('pic/tab-compressed.jpg') center/cover no-repeat;
   border:1px solid rgba(120,95,55,.5);border-radius:3px;
   box-shadow:0 0 0 1px rgba(0,0,0,.55),0 20px 48px rgba(0,0,0,.65),inset 0 0 60px rgba(0,0,0,.55);
 }
@@ -168,7 +168,7 @@ body::after{content:'';position:fixed;inset:0;z-index:3;pointer-events:none;back
 .law-panel b{color:#ffb0a0;font-weight:900;text-shadow:0 1px 3px rgba(0,0,0,.9),0 0 12px rgba(140,40,20,.5)}
 
 /* 飞行临时卡 */
-.draw-card-temp{position:fixed;z-index:400;width:150px;height:216px;border-radius:8px;pointer-events:none;background:url('https://cdn.jsdelivr.net/gh/lzumily/HG_cards@main/cards/卡背-起源电竞.webp') center/cover no-repeat;border:1px solid var(--gold-line);box-shadow:0 14px 34px rgba(0,0,0,.75),inset 0 0 16px rgba(0,0,0,.5);transition:transform .6s cubic-bezier(.17,.67,.3,1.1),opacity .22s}
+.draw-card-temp{position:fixed;z-index:400;width:150px;height:216px;border-radius:8px;pointer-events:none;background:url('cards/卡背-起源电竞.webp') center/cover no-repeat;border:1px solid var(--gold-line);box-shadow:0 14px 34px rgba(0,0,0,.75),inset 0 0 16px rgba(0,0,0,.5);transition:transform .6s cubic-bezier(.17,.67,.3,1.1),opacity .22s}
 
 /* ============ 揭示层 ============ */
 .reveal-overlay{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;background:rgba(5,3,2,.6);backdrop-filter:blur(4px);overflow-y:auto;padding:16px 0}
@@ -230,7 +230,7 @@ body::after{content:'';position:fixed;inset:0;z-index:3;pointer-events:none;back
 .reveal-lock b{color:#e8b0a0;font-weight:700}
 
 /* ============ 卡桌页 ============ */
-#view-table{background:url('https://cdn.jsdelivr.net/gh/lzumily/HG_cards@main/pic/back2.webp') center/cover no-repeat}
+#view-table{background:url('pic/back2.webp') center/cover no-repeat}
 #view-table::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 42%,transparent 28%,rgba(0,0,0,.72) 100%);z-index:1;pointer-events:none}
 #view-table>*{position:relative;z-index:2}
 .table-top{display:flex;align-items:center;flex-wrap:wrap;padding:20px 34px;gap:14px}
@@ -327,7 +327,7 @@ body::after{content:'';position:fixed;inset:0;z-index:3;pointer-events:none;back
 .turn-btn .small,.done-btn .small{display:block;font-weight:400;font-size:10.5px;letter-spacing:.14em;color:#d9c39a;margin-top:4px}
 .done-btn .small{color:#e8b0a0}
 /* 完成页 */
-#view-complete{background:url('https://cdn.jsdelivr.net/gh/lzumily/HG_cards@main/pic/back.webp') center/cover no-repeat;align-items:center;justify-content:center}
+#view-complete{background:url('pic/back.webp') center/cover no-repeat;align-items:center;justify-content:center}
 #view-complete::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(0,0,0,.25),transparent 55%),rgba(0,0,0,.55);z-index:1}
 #view-complete>*{position:relative;z-index:2}
 .complete-inner{max-width:820px;width:100%;padding:60px 50px;text-align:center;display:flex;flex-direction:column;align-items:center}
@@ -800,7 +800,7 @@ const LV_NAME={rock:'岩石',bronze:'青铜',silver:'白银',gold:'黄金'};
 const LV_ZH={rock:'石',bronze:'铜',silver:'银',gold:'金'};
 
 function getCardImg(c) {
-  return `https://cdn.jsdelivr.net/gh/lzumily/HG_cards@main/cards_cutout/${c.type}（${LV_ZH[c.lv]}）.webp`;
+  return `cards_cutout/${c.type}（${LV_ZH[c.lv]}）.webp`;
 }
 
 const TYPE_ICON={
@@ -927,8 +927,8 @@ const $=id=>document.getElementById(id);
 let AC=null;
 function ac(){ if(!AC) AC=new (window.AudioContext||window.webkitAudioContext)(); if(AC.state==='suspended')AC.resume(); return AC }
 let sndClick=null,sndCard=null;
-function sClick(){ try{ if(!sndClick){sndClick=new Audio('https://cdn.jsdelivr.net/gh/lzumily/HG_cards@main/music/CLICK.mp3');sndClick.volume=.45;} sndClick.currentTime=0; sndClick.play(); }catch(e){} }
-function sCard(){ try{ if(!sndCard){sndCard=new Audio('https://cdn.jsdelivr.net/gh/lzumily/HG_cards@main/music/card.wav');sndCard.volume=.6;} sndCard.currentTime=0; sndCard.play(); }catch(e){} }
+function sClick(){ try{ if(!sndClick){sndClick=new Audio('music/CLICK.mp3');sndClick.volume=.45;} sndClick.currentTime=0; sndClick.play(); }catch(e){} }
+function sCard(){ try{ if(!sndCard){sndCard=new Audio('music/card.wav');sndCard.volume=.6;} sndCard.currentTime=0; sndCard.play(); }catch(e){} }
 // 所有按钮点击统一播 CLICK（音量克制，不吵）
 document.addEventListener('click',e=>{const b=e.target&&e.target.closest?e.target.closest('button'):null;if(b)sClick();},true);
 function sCrack(){
@@ -963,7 +963,7 @@ function tataPlay(){
   try{
     if(!tataEl){
       const c=ac();
-      tataEl=new Audio('https://cdn.jsdelivr.net/gh/lzumily/HG_cards@main/music/tata.mp3');tataEl.loop=true;
+      tataEl=new Audio('music/tata.mp3');tataEl.loop=true;
       const src=c.createMediaElementSource(tataEl);
       const f=c.createBiquadFilter();f.type='lowpass';f.frequency.value=2600;f.Q.value=.7;
       tataGain=c.createGain();tataGain.gain.value=0;
