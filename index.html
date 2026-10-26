@@ -1,0 +1,1945 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>王座的游戏 · 起源电竞</title>
+<style>
+@font-face{font-family:'HY SunShangXiang';src:url('font/汉仪孙尚香简.ttf') format('truetype');font-weight:400 900;font-display:swap}
+@font-face{font-family:'HY MingYue';src:url('font/汉仪明月 85W.ttf') format('truetype');font-weight:400 900;font-display:swap}
+@font-face{font-family:'HY QiHei';src:url('font/汉仪旗黑 75简.ttf') format('truetype');font-weight:400 900;font-display:swap}
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#c9a45c;--gold-hi:#f0d9a0;--gold-dim:rgba(201,164,92,.4);--gold-line:rgba(201,164,92,.55);
+  --red:#9c3a30;--red-soft:#b34a3a;--blood:#a3352a;
+  --ink:#ece2cc;--ink2:#c8b896;--ink3:#8a7a5e;
+  --rock:#9a948a;--bronze:#b0793f;--silver:#cfd4da;
+  --serif:"Noto Serif SC","Source Han Serif SC","STSong","SimSun","Songti SC",Georgia,serif;
+  --brush:"HY SunShangXiang","汉仪孙尚香简","华文行楷","STXingkai","行楷","楷体","KaiTi","Noto Serif SC",serif;
+  --heiti:"HY MingYue","汉仪明月","黑体","SimHei","微软雅黑","Microsoft YaHei","Noto Sans SC","PingFang SC",sans-serif;
+  --qihei:"HY QiHei","汉仪旗黑","黑体","SimHei","微软雅黑","Microsoft YaHei","Noto Sans SC","PingFang SC",sans-serif;
+  /* 修复报错：将包含大量单引号的 SVG 转换为 Base64 编码 */
+  --paper-noise: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIj48ZmlsdGVyIGlkPSJuIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iMC45IiBudW1PY3RhdmVzPSIyIi8+PGZlQ29sb3JNYXRyaXggdmFsdWVzPSIwIDAgMCAwIDAuNTUgMCAwIDAgMCAwLjQ1IDAgMCAwIDAgMC4zNSAwIDAgMCAwLjA2IDAiLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgZmlsdGVyPSJ1cmwoI24pIi8+PC9zdmc+");
+}
+html,body{height:100%}
+body{font-family:var(--qihei);color:var(--ink);overflow:hidden;-webkit-font-smoothing:antialiased;background:#0a0705}
+body::after{content:'';position:fixed;inset:0;z-index:3;pointer-events:none;background:url('pic/LOGO.png') center center no-repeat;background-size:55vmin;opacity:.05;filter:grayscale(1)}
+
+/* ============ 视图容器 ============ */
+.view{position:fixed;inset:0;display:none;flex-direction:column;z-index:2;overflow-y:auto}
+.view.show{display:flex;animation:viewIn .45s ease both}
+@keyframes viewIn{from{opacity:0;transform:scale(1.02)}to{opacity:1;transform:none}}
+
+/* ============ 开始页 ============ */
+#view-start{background:url('pic/back.png') center/cover no-repeat;align-items:center;justify-content:center;text-align:center}
+#view-start::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,transparent 30%,rgba(0,0,0,.78) 100%);z-index:1}
+#view-start>*{position:relative;z-index:2}
+.start-title{
+  font-family:var(--brush);font-size:52px;letter-spacing:.3em;font-weight:700;
+  color:#f5e2a8;
+  text-shadow:
+    0 1px 2px rgba(0,0,0,.85),
+    0 3px 6px rgba(0,0,0,.8),
+    0 8px 16px rgba(0,0,0,.65),
+    0 14px 30px rgba(0,0,0,.5),
+    0 0 26px rgba(214,176,92,.55),
+    0 0 70px rgba(201,164,92,.4);
+  position:relative;
+}
+.start-title-wrap{position:relative;display:inline-block;padding:14px 40px}
+.gold-particles{position:absolute;inset:-26px -50px;pointer-events:none;z-index:3}
+.gold-particles i{position:absolute;width:5px;height:5px;border-radius:50%;background:radial-gradient(circle,#fff5cf 0%,#ffd970 45%,rgba(255,214,110,0) 75%);box-shadow:0 0 8px 1px rgba(255,210,120,.9),0 0 18px 3px rgba(255,200,90,.45);opacity:0;animation:goldFloat var(--d,4s) ease-in-out infinite;animation-delay:var(--del,0s)}
+.gold-particles i:nth-child(1){left:4%;top:20%;--d:3.6s;--del:0s}
+.gold-particles i:nth-child(2){left:12%;top:64%;--d:4.4s;--del:.4s}
+.gold-particles i:nth-child(3){left:24%;top:12%;--d:3.2s;--del:1.1s}
+.gold-particles i:nth-child(4){left:30%;top:78%;--d:4.9s;--del:.2s}
+.gold-particles i:nth-child(5){left:46%;top:4%;--d:3.8s;--del:1.6s}
+.gold-particles i:nth-child(6){left:52%;top:86%;--d:4.1s;--del:.8s}
+.gold-particles i:nth-child(7){left:66%;top:18%;--d:3.4s;--del:.5s}
+.gold-particles i:nth-child(8){left:72%;top:70%;--d:4.6s;--del:1.3s}
+.gold-particles i:nth-child(9){left:84%;top:30%;--d:3.9s;--del:0s}
+.gold-particles i:nth-child(10){left:90%;top:72%;--d:4.2s;--del:.9s}
+.gold-particles i:nth-child(11){left:58%;top:44%;--d:3.1s;--del:1.9s}
+.gold-particles i:nth-child(12){left:8%;top:42%;--d:4.7s;--del:1.4s}
+@keyframes goldFloat{
+  0%,100%{transform:translate(0,0) scale(.7);opacity:0}
+  18%{opacity:.95}
+  40%{transform:translate(3px,-9px) scale(1.15);opacity:.6}
+  60%{transform:translate(-2px,-16px) scale(.9);opacity:.85}
+  85%{opacity:.25}
+}
+.start-sub{margin-top:14px;font-family:var(--qihei);font-size:15px;letter-spacing:.42em;color:var(--ink2)}
+.start-crown{margin-bottom:22px;font-size:40px;color:var(--gold-hi);text-shadow:0 0 30px rgba(201,164,92,.6);animation:float 3.5s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.btn-main{
+  margin-top:44px;padding:16px 52px;border-radius:3px;cursor:pointer;
+  font-family:var(--qihei);font-size:16px;font-weight:700;letter-spacing:.24em;color:var(--gold-hi);
+  background:linear-gradient(180deg,rgba(240,217,160,.18),rgba(201,164,92,.06) 50%,rgba(138,106,53,.16)),rgba(10,7,4,.5);
+  border:1px solid var(--gold-line);transition:.25s;
+  box-shadow:0 1px 0 rgba(240,217,160,.25) inset,0 0 40px -12px rgba(201,164,92,.5),0 10px 30px rgba(0,0,0,.5);
+}
+.btn-main:hover{transform:translateY(-2px);box-shadow:0 1px 0 rgba(240,217,160,.35) inset,0 0 60px -8px rgba(201,164,92,.7),0 14px 36px rgba(0,0,0,.55)}
+.btn-main:active{transform:none}
+.start-op{margin-top:16px;font-size:12.5px;letter-spacing:.12em;color:var(--ink3)}
+
+/* ============ 登记页 ============ */
+#view-register{background:url('pic/back.png') center/cover no-repeat;align-items:center;justify-content:center}
+#view-register::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,transparent 25%,rgba(0,0,0,.8) 100%);z-index:1}
+#view-register>*{position:relative;z-index:2}
+.paper{
+  position:relative;width:520px;max-width:92%;padding:44px 48px;border-radius:2px;
+  background-color:#e6d9b6;background-image:var(--paper-noise);
+  color:#3a2c16;box-shadow:0 30px 80px rgba(0,0,0,.7),0 0 0 1px rgba(90,70,30,.35),inset 0 0 30px rgba(120,95,50,.35);
+  text-align:center;
+}
+.paper::before{content:"";position:absolute;inset:10px;border:1px solid rgba(110,85,40,.4);border-radius:1px;pointer-events:none}
+.paper-title{font-family:var(--qihei);font-size:22px;font-weight:700;letter-spacing:.18em;color:#4a3418}
+.paper-sub{margin-top:10px;font-size:14px;line-height:1.9;color:#5c4526}
+.paper-input{
+  margin-top:26px;width:100%;padding:13px 16px;border-radius:2px;
+  font-family:var(--qihei);font-size:16px;letter-spacing:.08em;color:#2e2010;
+  background:rgba(255,248,226,.55);border:1px solid #8a6a35;outline:none;text-align:center;
+}
+.paper-input:focus{border-color:#4a3418;box-shadow:0 0 0 3px rgba(122,90,40,.25)}
+.paper-btn{
+  margin-top:24px;padding:13px 46px;border-radius:2px;cursor:pointer;
+  font-family:var(--qihei);font-size:15px;font-weight:700;letter-spacing:.2em;color:#f3e6c2;
+  background:linear-gradient(180deg,#8a6030,#5e3e1c);border:1px solid #4a3418;
+  box-shadow:0 1px 0 rgba(255,230,180,.3) inset,0 8px 20px rgba(0,0,0,.35);
+  transition:.2s;
+}
+.paper-btn:hover{filter:brightness(1.12);transform:translateY(-1px)}
+.paper-btn:active{transform:none}
+
+/* ============ 抽卡页 ============ */
+#view-draw{background:url('pic/back.png') center/cover no-repeat}
+#view-draw::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,transparent 20%,rgba(0,0,0,.82) 100%);z-index:1}
+#view-draw>*{position:relative;z-index:2}
+.draw-top{display:flex;align-items:center;padding:22px 34px;gap:16px}
+.operator-tag{font-family:var(--qihei);font-size:14px;letter-spacing:.12em;color:var(--ink2)}
+.operator-tag b{color:var(--gold-hi);font-weight:700}
+/* 牌堆 */
+.deck-zone{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.deck-stack{width:150px;height:216px;position:relative;cursor:pointer;perspective:700px;margin-bottom:34px}
+.deck-card{position:absolute;left:0;top:0;width:150px;height:216px;border-radius:8px;background:url('cards/卡背-起源电竞.png') center/cover no-repeat;border:1px solid var(--gold-line);box-shadow:0 12px 28px rgba(0,0,0,.6),inset 0 0 16px rgba(0,0,0,.5)}
+.deck-stack .d1{transform:translate(-7px,8px) rotate(-2.5deg);opacity:.5}
+.deck-stack .d2{transform:translate(-2px,3px) rotate(-1deg);opacity:.75}
+.deck-stack .d3{transform:none;opacity:1}
+.deck-stack .crown-mini{position:absolute;top:-16px;left:50%;transform:translateX(-50%);font-size:30px;color:var(--gold-hi);filter:drop-shadow(0 1px 3px rgba(0,0,0,.7));z-index:5}
+.deck-stack:hover{filter:drop-shadow(0 0 18px rgba(201,164,92,.5))}
+.deck-stack.shake{animation:deckShake .3s ease}
+@keyframes deckShake{0%,100%{transform:translateY(0)}25%{transform:translateY(-3px) rotate(-1.5deg)}75%{transform:translateY(2px) rotate(1.5deg)}}
+.deck-hint{font-family:var(--qihei);font-size:17px;letter-spacing:.24em;color:var(--ink3)}
+.deck-hint .tap{color:var(--gold-hi);font-weight:700}
+/* 抽卡页左右布局 */
+.draw-layout{flex:1;display:flex;min-height:0;padding:10px 26px 26px;gap:0}
+/* 左侧契约律法栏（背景：pic/tab-compressed.jpg） */
+.law-panel{
+  width:360px;flex:0 0 auto;padding:0;overflow-y:auto;position:relative;
+  background:url('pic/tab-compressed.jpg') center/cover no-repeat;
+  border:1px solid rgba(120,95,55,.5);border-radius:3px;
+  box-shadow:0 0 0 1px rgba(0,0,0,.55),0 20px 48px rgba(0,0,0,.65),inset 0 0 60px rgba(0,0,0,.55);
+}
+.law-panel::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(20,12,5,.42),rgba(10,6,3,.55) 55%,rgba(20,12,5,.5));
+  mix-blend-mode:multiply;}
+.law-panel-inner{position:relative;z-index:2;padding:clamp(100px,13vh,150px) 6% 22px}
+.law-panel-inner::before{content:"";position:absolute;inset:10px;border:1px solid rgba(214,184,124,.4);border-radius:2px;pointer-events:none}
+.law-panel .lt{
+  font-family:var(--qihei);font-size:15px;font-weight:900;letter-spacing:.34em;text-align:center;
+  color:#f3e2b6;text-shadow:0 2px 0 rgba(0,0,0,.9),0 0 14px rgba(120,70,25,.8),0 0 30px rgba(0,0,0,.7);
+  margin-bottom:16px;padding-bottom:10px;
+}
+.law-item{
+  padding:clamp(11px,.8vw,18px) 0;border-bottom:1px solid rgba(214,184,124,.28);
+  font-size:13.5px;line-height:2;color:#e9d9ae;letter-spacing:.02em;
+  text-shadow:0 1px 2px rgba(0,0,0,.85);
+}
+.law-item:last-child{border-bottom:none}
+/* 小标题居中一行，规则解释另起一行 */
+.law-head{
+  text-align:center;font-weight:900;color:#ffb0a0;letter-spacing:.22em;
+  font-size:clamp(14px,.95vw,22px);line-height:1.5;margin-bottom:clamp(4px,.35vw,9px);
+  text-shadow:0 1px 3px rgba(0,0,0,.9),0 0 12px rgba(140,40,20,.5);
+}
+.law-body{font-size:clamp(12.5px,.85vw,18px);line-height:1.85;color:#e4d3a6;padding-left:2em}
+.law-panel b{color:#ffb0a0;font-weight:900;text-shadow:0 1px 3px rgba(0,0,0,.9),0 0 12px rgba(140,40,20,.5)}
+
+/* 飞行临时卡 */
+.draw-card-temp{position:fixed;z-index:400;width:150px;height:216px;border-radius:8px;pointer-events:none;background:url('cards/卡背-起源电竞.png') center/cover no-repeat;border:1px solid var(--gold-line);box-shadow:0 14px 34px rgba(0,0,0,.75),inset 0 0 16px rgba(0,0,0,.5);transition:transform .6s cubic-bezier(.17,.67,.3,1.1),opacity .22s}
+
+/* ============ 揭示层 ============ */
+.reveal-overlay{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;background:rgba(5,3,2,.6);backdrop-filter:blur(4px);overflow-y:auto;padding:16px 0}
+.reveal-overlay.show{display:flex;animation:fadein .3s ease}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+.reveal-inner{position:relative;display:flex;align-items:center;gap:26px;max-width:860px;width:94%;padding:22px 28px;max-height:94vh;overflow-y:auto;background:linear-gradient(180deg,rgba(26,17,9,.98),rgba(15,10,5,.98));border:1px solid var(--gold-line);border-radius:4px;box-shadow:0 0 0 1px rgba(0,0,0,.6) inset,0 0 0 6px rgba(201,164,92,.05),0 40px 90px rgba(0,0,0,.85);opacity:0;transform:translateY(18px) scale(.95)}
+.reveal-overlay.show .reveal-inner{animation:rise .5s cubic-bezier(.2,.85,.3,1.05) both}
+@keyframes rise{from{opacity:0;transform:translateY(26px) scale(.94)}to{opacity:1;transform:none}}
+.reveal-card{flex:0 0 auto;width:220px;margin:auto 0;opacity:0;transform:scale(.8);transition:opacity .35s ease .25s,transform .4s cubic-bezier(.2,.9,.3,1.2) .25s}
+.reveal-overlay.show .reveal-card{opacity:1;transform:none}
+/* 揭示层卡牌：卡填满容器，描述区加宽，hint 允许 3 行完整显示 */
+.reveal-card .card{width:100%}
+.reveal-card .art-zone{flex:1 1 auto}
+.reveal-card .info-zone{padding:9px 12px 9px}
+.reveal-card .c-hint{-webkit-line-clamp:3;line-clamp:3}
+.reveal-card .c-goal{-webkit-line-clamp:3;line-clamp:3}
+.reveal-body{flex:1;display:flex;flex-direction:column;justify-content:center;min-width:0}
+.reveal-label{font-family:var(--qihei);font-size:11px;letter-spacing:.3em;color:var(--gold-dim);margin-bottom:10px;text-transform:uppercase}
+.reveal-label::before{content:"◈ "}
+.reveal-text{font-size:14.5px;line-height:2.05;color:#d8c9a5;letter-spacing:.01em;max-width:520px;text-shadow:0 2px 6px rgba(0,0,0,.6)}
+
+/* 醒目的红色卡牌专属描述 */
+.card-hint{
+  display:block;
+  font-style:italic;
+  font-family:inherit;
+  color:#ff4d4d;
+  letter-spacing:.04em;
+  margin-bottom:10px;
+  font-size:15px;
+  font-weight:700;
+  line-height:1.9;
+  text-shadow:0 0 12px rgba(255, 70, 70, 0.6), 0 2px 4px rgba(0,0,0,.6);
+}
+
+.reveal-text .hl{color:var(--gold-hi);font-weight:700}
+.reveal-text .cta{display:inline-block;margin-top:10px;font-weight:700;color:var(--blood);letter-spacing:.05em;animation:madShake .3s linear infinite;text-shadow:0 0 6px rgba(220,60,40,.7),0 0 18px rgba(220,40,30,.35)}
+@keyframes madShake{
+  0%{transform:translate(0,0) rotate(0deg)}
+  20%{transform:translate(-1.5px,.8px) rotate(-.7deg)}
+  40%{transform:translate(1.5px,-.9px) rotate(.7deg)}
+  60%{transform:translate(-1px,-.7px) rotate(-.5deg)}
+  80%{transform:translate(1.2px,.9px) rotate(.6deg)}
+  100%{transform:translate(0,0) rotate(0deg)}
+}
+.cursor{display:inline-block;width:2px;height:1em;background:var(--gold-hi);vertical-align:-.15em;animation:blink .7s steps(1) infinite;margin-left:2px}
+@keyframes blink{50%{opacity:0}}
+.reveal-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+.btn-choice{flex:1;padding:14px 18px;border-radius:3px;cursor:pointer;text-align:center;font-family:var(--qihei);font-size:13.5px;font-weight:700;letter-spacing:.06em;line-height:1.5;transition:.2s;opacity:0;transform:translateY(10px)}
+.reveal-overlay.show .btn-choice{animation:rise .4s ease forwards}
+.btn-good{color:var(--gold-hi);background:linear-gradient(180deg,rgba(240,217,160,.2),rgba(201,164,92,.08) 45%,rgba(138,106,53,.18)),#120c07;border:1px solid var(--gold-line);box-shadow:0 1px 0 rgba(240,217,160,.3) inset,0 6px 18px rgba(0,0,0,.5)}
+.btn-good:hover{background:linear-gradient(180deg,rgba(240,217,160,.32),rgba(201,164,92,.14) 45%,rgba(138,106,53,.26)),#180f08;border-color:var(--gold-hi);transform:translateY(-1px)}
+.btn-good small{display:block;font-weight:400;font-size:10.5px;color:var(--ink3);margin-top:3px;letter-spacing:.02em}
+.btn-crazy{color:#ffd0c0;background:linear-gradient(180deg,rgba(156,58,48,.26),rgba(60,16,10,.35));border:1px solid rgba(200,90,70,.55);box-shadow:0 1px 0 rgba(240,217,160,.12) inset,0 6px 18px rgba(0,0,0,.5),0 0 24px -8px rgba(200,80,60,.6)}
+.btn-crazy:hover{background:linear-gradient(180deg,rgba(156,58,48,.4),rgba(60,16,10,.5));border-color:var(--red-soft);transform:translateY(-1px)}
+.btn-crazy small{display:block;font-weight:400;font-size:10.5px;color:#c89a8a;margin-top:3px;letter-spacing:.02em}
+.reveal-lock{flex-basis:100%;font-size:11.5px;line-height:1.9;color:#c89a8a;letter-spacing:.04em;text-align:center;opacity:0;transform:translateY(10px)}
+.reveal-overlay.show .reveal-lock{animation:rise .4s ease forwards}
+.reveal-lock b{color:#e8b0a0;font-weight:700}
+
+/* ============ 卡桌页 ============ */
+#view-table{background:url('pic/back2.png') center/cover no-repeat}
+#view-table::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 42%,transparent 28%,rgba(0,0,0,.72) 100%);z-index:1;pointer-events:none}
+#view-table>*{position:relative;z-index:2}
+.table-top{display:flex;align-items:center;flex-wrap:wrap;padding:20px 34px;gap:14px}
+.table-top .op{font-size:14px;letter-spacing:.08em;color:var(--ink2)}
+.table-top .op b{color:var(--gold-hi);font-weight:700}
+.days-chip{
+  margin-left:auto;display:flex;align-items:center;gap:10px;padding:9px 18px;border-radius:3px;
+  background:linear-gradient(180deg,rgba(30,18,10,.82),rgba(14,8,5,.9));border:1px solid var(--gold-line);
+  box-shadow:inset 0 1px 0 rgba(240,217,160,.12),0 8px 20px rgba(0,0,0,.5);
+}
+.days-chip .hourglass{font-size:18px;color:var(--red-soft)}
+.days-chip .lbl{font-size:11px;letter-spacing:.16em;color:var(--ink3)}
+.days-chip .num{font-size:30px;font-weight:700;color:#e8b0a0;font-variant-numeric:tabular-nums;line-height:1;text-shadow:0 0 16px rgba(200,90,60,.55)}
+.days-chip .den{font-size:12px;color:var(--ink3)}
+/* 卡桌主体 */
+.table-layout{flex:1;display:flex;min-height:0;padding:0 26px 26px;gap:18px}
+.table-main{
+  flex:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:flex-start;
+  padding:clamp(10px,1.2vh,20px) 16px 0;
+  gap:clamp(10px,1vh,16px);
+  min-height:0;min-width:0;
+  overflow-y:auto;overflow-x:hidden;
+  scrollbar-gutter:stable;
+}
+/* 防 flex 压缩：内容多高就多高，超高由 table-main 滚动 */
+.table-main>*{flex:none}
+.table-cards{display:flex;gap:34px;justify-content:center;align-items:flex-end;flex-wrap:wrap}
+.table-cards .card{width:230px;cursor:default}
+.table-cards .card:hover{transform:translateY(-6px)}
+/* 任务纸张（放在卡桌中央/下方，老板看得见） */
+.task-paper{
+  position:relative;width:min(760px,88%);padding:20px 28px 18px;border-radius:2px;
+  background-color:#e6d9b6;background-image:var(--paper-noise);color:#3a2c16;
+  box-shadow:0 18px 50px rgba(0,0,0,.65),0 0 0 1px rgba(90,70,30,.35),inset 0 0 26px rgba(120,95,50,.3);
+}
+.task-paper::before{content:"";position:absolute;inset:8px;border:1px solid rgba(110,85,40,.38);border-radius:1px;pointer-events:none}
+.task-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.task-head .tick{color:#6b4a1e;font-size:14px}
+.task-head .t{font-family:var(--qihei);font-size:15px;font-weight:700;letter-spacing:.2em;color:#4a3418}
+.task-head::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(90,70,30,.4),transparent)}
+.task-item{padding:10px 0;border-bottom:1px dashed rgba(90,70,30,.25)}
+.task-item:last-child{border-bottom:none}
+.task-item .tt{font-size:14.5px;font-weight:700;color:#4a3418;letter-spacing:.02em}
+.task-item .tg{font-size:13px;line-height:1.7;color:#5c4526;margin-top:4px}
+.task-item .tg b{color:#8a1410;font-weight:700}
+.task-item .lv{margin-left:8px;font-size:11px;color:#7a5c28;border:1px solid rgba(110,85,40,.5);padding:1px 7px;border-radius:2px;letter-spacing:.1em}
+/* 卡桌任务栏中的专属描述样式 */
+.task-hint{font-size:12px;line-height:1.7;color:#8a1410;margin-top:6px;font-style:italic;font-weight:500;opacity:0.9;text-shadow:0 1px 1px rgba(255,255,255,.3);}
+
+/* 阶段压迫文案 */
+.phase-box{
+  position:relative;width:min(760px,88%);padding:15px 24px 14px;border-radius:3px;
+  margin-top:clamp(12px,.9vw,22px);margin-bottom:clamp(12px,.9vw,20px);
+  background:linear-gradient(180deg,rgba(30,18,10,.85),rgba(15,9,5,.9));
+  border:1px solid rgba(201,164,92,.3);box-shadow:0 12px 36px rgba(0,0,0,.55);
+  font-family:var(--heiti);font-size:14px;line-height:2;color:#d8c9a5;text-align:center;min-height:64px;
+}
+.phase-box .hl-red,.hl-red{color:var(--blood);font-weight:700}
+.phase-box.pulse{border-color:rgba(179,74,58,.7);animation:redPulse 1.4s ease-in-out infinite}
+@keyframes redPulse{0%,100%{box-shadow:0 0 10px rgba(179,74,58,.15),0 12px 36px rgba(0,0,0,.55)}50%{box-shadow:0 0 34px rgba(179,74,58,.55),0 12px 36px rgba(0,0,0,.55)}}
+.phase-box .pt{display:block;font-family:var(--heiti);font-size:12px;letter-spacing:.28em;color:var(--gold-dim);margin-bottom:6px}
+/* 标记按钮 */
+.turn-btn{
+  padding:15px 56px;border-radius:3px;cursor:pointer;
+  font-family:var(--qihei);font-size:15px;font-weight:700;letter-spacing:.24em;color:#f3e6c2;
+  background:linear-gradient(180deg,#8a6030,#5e3e1c);border:1px solid #4a3418;
+  box-shadow:0 1px 0 rgba(255,230,180,.3) inset,0 10px 26px rgba(0,0,0,.5);
+  transition:.2s;
+}
+.turn-btn:hover{filter:brightness(1.12);transform:translateY(-2px)}
+.turn-btn:active{transform:none}
+/* 卡桌双按钮：粘底常驻，不再被挤出框外 */
+.table-actions{
+  position:sticky;bottom:0;z-index:10;
+  align-self:stretch;
+  display:flex;flex-wrap:wrap;
+  gap:clamp(10px,1vw,22px);
+  align-items:center;justify-content:center;
+  margin-top:auto;
+  padding:clamp(10px,1vw,16px) 0 clamp(14px,1.4vh,22px);
+  background:linear-gradient(180deg,rgba(10,7,4,0),rgba(10,7,4,.88) 34%,rgba(10,7,4,.96));
+}
+.turn-btn,.done-btn{
+  padding:15px 44px;border-radius:3px;cursor:pointer;
+  font-family:var(--qihei);font-size:15px;font-weight:700;letter-spacing:.2em;color:#f3e6c2;
+  box-shadow:0 1px 0 rgba(255,230,180,.25) inset,0 10px 26px rgba(0,0,0,.5);
+  transition:.2s;
+}
+.turn-btn{background:linear-gradient(180deg,#8a6030,#5e3e1c);border:1px solid #4a3418}
+.done-btn{background:linear-gradient(180deg,#a0522e,#6e3118);border:1px solid #521f10;color:#ffd9c0;box-shadow:0 1px 0 rgba(255,210,180,.25) inset,0 10px 26px rgba(0,0,0,.5),0 0 24px -8px rgba(200,90,60,.55)}
+.done-btn:hover{filter:brightness(1.15);transform:translateY(-2px)}
+.done-btn:active{transform:none}
+.turn-btn .small,.done-btn .small{display:block;font-weight:400;font-size:10.5px;letter-spacing:.14em;color:#d9c39a;margin-top:4px}
+.done-btn .small{color:#e8b0a0}
+/* 完成页 */
+#view-complete{background:url('pic/back.png') center/cover no-repeat;align-items:center;justify-content:center}
+#view-complete::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(0,0,0,.25),transparent 55%),rgba(0,0,0,.55);z-index:1}
+#view-complete>*{position:relative;z-index:2}
+.complete-inner{max-width:820px;width:100%;padding:60px 50px;text-align:center;display:flex;flex-direction:column;align-items:center}
+.complete-eyebrow{font-family:var(--brush);font-size:13px;letter-spacing:.34em;color:var(--gold-dim);margin-bottom:22px}
+.complete-title{font-family:var(--brush);font-size:34px;font-weight:900;letter-spacing:.1em;color:#f3e2b6;text-shadow:0 4px 30px rgba(0,0,0,.85),0 0 30px rgba(120,70,25,.6);margin-bottom:26px}
+.complete-text{font-family:var(--heiti);font-size:16px;line-height:2.2;color:#e8d9ae;max-width:700px;margin:0 auto 26px;text-shadow:0 2px 8px rgba(0,0,0,.85);font-weight:500}
+.complete-ask{font-family:var(--qihei);font-size:22px;font-weight:800;letter-spacing:.08em;color:var(--blood);text-shadow:0 0 18px rgba(220,60,40,.5),0 2px 6px rgba(0,0,0,.9);margin-bottom:34px;animation:madShake .3s linear infinite}
+.complete-actions{display:flex;gap:20px;justify-content:center;flex-wrap:wrap}
+.again-btn,.leave-btn{
+  padding:16px 40px;border-radius:3px;cursor:pointer;
+  font-family:var(--qihei);font-size:15px;font-weight:800;letter-spacing:.1em;
+  transition:.2s;
+}
+.again-btn{color:#ffd0c0;background:linear-gradient(180deg,rgba(156,58,48,.3),rgba(60,16,10,.4));border:1px solid rgba(200,90,70,.6);box-shadow:0 1px 0 rgba(240,217,160,.15) inset,0 8px 22px rgba(0,0,0,.55),0 0 26px -8px rgba(200,80,60,.7);animation:madShake .3s linear infinite}
+.again-btn:hover{filter:brightness(1.15);transform:translateY(-1px)}
+.again-btn small,.leave-btn small{display:block;font-weight:400;font-size:10.5px;color:#c89a8a;margin-top:4px;letter-spacing:.08em}
+.leave-btn{color:#d8c9a5;background:linear-gradient(180deg,rgba(120,90,60,.2),rgba(50,34,18,.3));border:1px solid rgba(140,110,70,.5);box-shadow:0 1px 0 rgba(240,217,160,.1) inset,0 8px 22px rgba(0,0,0,.55)}
+.leave-btn:hover{filter:brightness(1.12);transform:translateY(-1px)}
+.turn-btn .small{display:block;font-weight:400;font-size:10.5px;letter-spacing:.14em;color:#d9c39a;margin-top:4px}
+/* 事件弹层 */
+.event-inner{flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.event-body{max-width:660px;width:100%}
+.event-eyebrow{font-family:var(--qihei);font-size:12px;letter-spacing:.3em;color:var(--gold-dim);margin-bottom:14px;text-transform:uppercase}
+.event-title{font-family:var(--qihei);font-size:26px;font-weight:800;letter-spacing:.14em;color:var(--gold-hi);text-shadow:0 3px 18px rgba(0,0,0,.7);margin-bottom:18px;line-height:1.4}
+.event-title .blood{color:var(--blood)}
+.event-desc{font-size:15px;line-height:2.05;color:#d8c9a5;letter-spacing:.01em;max-width:600px;margin:0 auto;text-shadow:0 2px 8px rgba(0,0,0,.6)}
+.event-desc .hl{color:var(--gold-hi);font-weight:700}
+.event-desc .hl-red{color:var(--blood);font-weight:700}
+.event-goal{margin:20px auto 0;width:fit-content;padding:10px 22px;border-radius:3px;background:linear-gradient(180deg,rgba(156,58,48,.16),rgba(60,16,10,.3));border:1px solid rgba(200,90,70,.5);color:#ffd0c0;font-size:13.5px;letter-spacing:.05em;font-weight:700;line-height:1.7}
+.event-actions{display:flex;gap:14px;margin-top:30px;justify-content:center}
+.event-btn{padding:14px 40px;border-radius:3px;cursor:pointer;font-family:var(--heiti);font-size:14px;font-weight:700;letter-spacing:.1em;transition:.2s;opacity:0;transform:translateY(10px)}
+.reveal-overlay.show .event-btn{animation:rise .4s ease forwards}
+.event-accept{color:var(--gold-hi);background:linear-gradient(180deg,rgba(240,217,160,.2),rgba(201,164,92,.08) 45%,rgba(138,106,53,.18)),#120c07;border:1px solid var(--gold-line);box-shadow:0 1px 0 rgba(240,217,160,.3) inset,0 6px 18px rgba(0,0,0,.5)}
+.event-accept:hover{background:linear-gradient(180deg,rgba(240,217,160,.32),rgba(201,164,92,.14) 45%,rgba(138,106,53,.26)),#180f08;border-color:var(--gold-hi);transform:translateY(-1px)}
+.event-decline{color:#c89a8a;background:linear-gradient(180deg,rgba(120,90,60,.14),rgba(60,40,20,.2));border:1px solid rgba(140,110,70,.4);box-shadow:0 1px 0 rgba(240,217,160,.1) inset,0 6px 18px rgba(0,0,0,.5)}
+.event-decline:hover{background:linear-gradient(180deg,rgba(120,90,60,.22),rgba(60,40,20,.3));border-color:#a07a45;transform:translateY(-1px)}
+/* 卡桌事件条 */
+.event-bar{position:relative;width:min(760px,88%);padding:12px 24px;margin-top:clamp(14px,1vw,22px);border-radius:3px;text-align:center;font-size:13.5px;line-height:1.9;color:#ffd0c0;background:linear-gradient(180deg,rgba(156,58,48,.2),rgba(60,16,10,.32));border:1px solid rgba(200,90,70,.6);box-shadow:0 0 26px -6px rgba(200,80,60,.7),0 10px 26px rgba(0,0,0,.5)}
+.event-bar .eb-t{display:block;font-size:11px;letter-spacing:.26em;color:var(--gold-dim);margin-bottom:4px}
+.event-bar .hl-red{color:#ff7a68;font-weight:700}
+
+/* ============ 苏丹卡（复用） ============ */
+/* 调整了宽高比例，不再使用过长的 5/8 */
+.card{--lv:var(--gold);position:relative;width:216px;aspect-ratio:5/6.5;border-radius:4px;padding:3px;cursor:grab;background:linear-gradient(160deg,var(--lv-hi,#f0d9a0) 0%,var(--lv-mid,#b98a4a) 20%,#6e5026 42%,var(--lv-mid,#b98a4a) 68%,var(--lv-hi,#f0d9a0) 84%,#5e3f20 100%);box-shadow:0 22px 48px rgba(0,0,0,.75),0 0 0 1px rgba(0,0,0,.7),0 0 30px -10px color-mix(in srgb,var(--lv) 55%,transparent);transition:transform .32s cubic-bezier(.2,.85,.3,1),box-shadow .32s}
+.card[data-lv="rock"]{--lv:var(--rock);--lv-hi:#b6b2a9;--lv-mid:#8a857b;background:linear-gradient(160deg,#b6b2a9,#8a857b 22%,#5b5750 45%,#8a857b 66%,#b6b2a9 84%,#504c45)}
+.card[data-lv="bronze"]{--lv:var(--bronze);--lv-hi:#d29a5f;--lv-mid:#9c6a34;background:linear-gradient(160deg,#d29a5f,#9c6a34 22%,#6a431f 45%,#9c6a34 66%,#d29a5f 84%,#5a3517)}
+.card[data-lv="silver"]{--lv:var(--silver);--lv-hi:#eef1f5;--lv-mid:#bcc3cb;background:linear-gradient(160deg,#eef1f5,#bcc3cb 22%,#7d848c 45%,#bcc3cb 66%,#eef1f5 84%,#686f77)}
+.card[data-lv="gold"]{--lv:#c9a45c;--lv-hi:#f0d9a0;--lv-mid:#b98a4a}
+.card::before{content:"";position:absolute;inset:2px;border-radius:2px;z-index:4;pointer-events:none;box-shadow:inset 0 0 12px rgba(0,0,0,.5),inset 0 1px 0 rgba(240,217,160,.35)}
+.card-inner{position:relative;width:100%;height:100%;border-radius:3px;overflow:hidden;display:flex;flex-direction:column;background:linear-gradient(168deg,#1a1108 0%,#130c06 50%,#0d0804 100%);box-shadow:inset 0 0 30px rgba(0,0,0,.8)}
+.card-inner::before{content:"";position:absolute;inset:5px;border-radius:2px;border:1px solid rgba(201,164,92,.18);pointer-events:none;z-index:6}
+/* 美术区吸收剩余空间，描述区按内容高度（字大、框紧凑、底部无空白） */
+.art-zone{position:relative;flex:1 1 auto;min-height:0;overflow:hidden}
+.art-zone::after{content:"";position:absolute;left:0;right:0;bottom:0;height:26%;background:linear-gradient(180deg,transparent,rgba(13,8,4,.88));pointer-events:none;z-index:2}
+.art-zone .frame{position:absolute;inset:7px;border:1px solid rgba(201,164,92,.28);border-radius:2px;z-index:3;pointer-events:none}
+/* 卡牌插画 */
+.kill-art{position:absolute;inset:0;z-index:1;background-size:contain;background-repeat:no-repeat;background-position:center 30%;filter:drop-shadow(0 14px 22px rgba(0,0,0,.6))}
+.type-art{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:radial-gradient(90% 80% at 50% 46%,color-mix(in srgb,var(--lv) 16%,transparent),transparent 70%)}
+.type-art svg{width:52px;height:52px;color:var(--lv-hi,#f0d9a0);filter:drop-shadow(0 0 14px color-mix(in srgb,var(--lv) 70%,transparent))}
+.type-art span{font-size:15px;font-weight:700;letter-spacing:.3em;color:var(--lv-hi,#f0d9a0)}
+.gem{position:absolute;top:13px;right:13px;width:12px;height:12px;z-index:5;border-radius:2px;background:var(--lv);box-shadow:0 0 12px color-mix(in srgb,var(--lv) 75%,transparent),inset 0 1px 0 rgba(255,255,255,.5);transform:rotate(45deg)}
+.gem::after{content:"";position:absolute;inset:2px;background:color-mix(in srgb,var(--lv) 70%,#fff);border-radius:1px}
+.info-zone{position:relative;flex:0 1 auto;min-height:0;overflow:hidden;z-index:5;padding:7px 10px 4px;display:flex;flex-direction:column;background:linear-gradient(180deg,rgba(201,164,92,.05),transparent 30%),rgba(13,8,4,.94);border-top:1px solid rgba(201,164,92,.3)}
+.c-title{font-size:13.5px;font-weight:700;letter-spacing:.02em;color:var(--gold-hi);text-shadow:0 2px 6px rgba(0,0,0,.7);line-height:1.3}
+.c-goal{margin-top:4px;margin-bottom:clamp(3px,.4vw,7px);font-size:12.5px;line-height:1.5;color:var(--ink2);letter-spacing:.01em;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.c-goal b{color:var(--gold-hi);font-weight:700}
+/* 卡面红色斜体专属描述：限 2 行，防止撑破描述区 */
+.c-hint{margin-top:3px;font-size:11.5px;line-height:1.5;color:#ff4d4d;font-style:italic;font-weight:500;letter-spacing:.02em;
+  display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;text-shadow:0 1px 3px rgba(0,0,0,.65)}
+.c-foot{display:flex;justify-content:space-between;align-items:center;margin-top:clamp(9px,.7vw,14px);padding-top:4px;border-top:1px solid rgba(201,164,92,.22);font-size:8px;letter-spacing:.1em}
+.c-foot .lv{color:rgba(214,184,124,.75);font-weight:400}
+.c-foot .t{color:rgba(210,190,150,.55);font-variant-numeric:tabular-nums}
+.card.enter{animation:deal .45s cubic-bezier(.2,.9,.3,1.05) both}
+@keyframes deal{0%{transform:translateY(46px) scale(.94);opacity:0}100%{transform:none;opacity:1}}
+
+/* ============ 结算页 ============ */
+#view-settle{background:#070403;align-items:center;justify-content:center;text-align:center}
+#view-settle::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(120,30,20,.14),transparent 60%),radial-gradient(ellipse at 50% 45%,transparent 35%,rgba(0,0,0,.85) 100%);z-index:1}
+#view-settle>*{position:relative;z-index:2}
+.settle-death{
+  font-family:var(--brush);font-size:92px;font-weight:900;letter-spacing:.2em;color:#7e1410;line-height:1;
+  text-shadow:0 0 44px rgba(180,30,20,.7),0 6px 30px rgba(0,0,0,.9);
+  animation:deathIn .8s cubic-bezier(.2,.85,.3,1.1) both;
+}
+@keyframes deathIn{from{opacity:0;transform:scale(1.6) rotate(-3deg)}to{opacity:1;transform:none}}
+.settle-sub{margin-top:20px;font-family:var(--qihei);font-size:17px;letter-spacing:.16em;color:#e8b0a0;text-shadow:0 0 20px rgba(200,80,60,.5);line-height:1.8}
+.settle-text{margin-top:30px;font-size:14.5px;line-height:2.1;color:#c8b896;max-width:640px;text-shadow:0 2px 10px rgba(0,0,0,.8)}
+.settle-text .hl-red{color:var(--blood);font-weight:700}
+.settle-roll{margin-top:26px;font-size:13px;letter-spacing:.1em;color:var(--ink3)}
+.btn-restart{margin-top:40px;padding:15px 50px;border-radius:3px;cursor:pointer;font-family:var(--heiti);font-size:15px;font-weight:700;letter-spacing:.24em;color:#f3e6c2;background:linear-gradient(180deg,#8a6030,#5e3e1c);border:1px solid #4a3418;box-shadow:0 1px 0 rgba(255,230,180,.3) inset,0 10px 26px rgba(0,0,0,.5);transition:.2s}
+.btn-restart:hover{filter:brightness(1.12);transform:translateY(-2px)}
+.btn-restart:active{transform:none}
+
+/* 结算转场浮层（概率跳时间的滚动） */
+.time-roll{position:fixed;inset:0;z-index:500;display:none;align-items:center;justify-content:center;background:rgba(5,3,2,.88);flex-direction:column;gap:20px}
+.time-roll.show{display:flex;animation:fadein .2s ease}
+.time-roll .tr-lbl{font-size:13px;letter-spacing:.3em;color:var(--gold-dim)}
+.time-roll .tr-num{font-size:64px;font-weight:900;color:#e8b0a0;text-shadow:0 0 40px rgba(200,90,60,.7);font-variant-numeric:tabular-nums}
+.time-roll .tr-txt{font-size:14px;letter-spacing:.12em;color:var(--ink2)}
+
+.banner{position:fixed;left:50%;bottom:30px;z-index:600;transform:translateX(-50%) translateY(16px);padding:12px 24px;border-radius:3px;font-size:13px;letter-spacing:.04em;color:var(--ink);font-family:var(--qihei);background:linear-gradient(180deg,#1c130a,#120c06);border:1px solid var(--gold-line);box-shadow:0 16px 36px rgba(0,0,0,.65),inset 0 1px 0 rgba(240,217,160,.1);opacity:0;transition:.24s;pointer-events:none}
+.banner.show{opacity:1;transform:translateX(-50%)}
+.banner.good{border-color:var(--gold-hi);color:var(--gold-hi)}
+.banner.bad{border-color:rgba(200,90,70,.6);color:#f0c0b0}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(201,164,92,.25);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:rgba(201,164,92,.45)}
+
+/* ============ 呼吸感：暗红血雾（倒计时≤2局） ============ */
+.blood-fog{position:fixed;inset:0;z-index:55;pointer-events:none;opacity:0;transition:opacity 1.4s ease;
+  background:
+    radial-gradient(ellipse at 50% 45%,transparent 52%,rgba(96,8,4,.52) 100%),
+    radial-gradient(ellipse at 16% 14%,rgba(120,14,6,.36),transparent 48%),
+    radial-gradient(ellipse at 84% 14%,rgba(120,14,6,.36),transparent 48%),
+    radial-gradient(ellipse at 16% 86%,rgba(120,14,6,.36),transparent 48%),
+    radial-gradient(ellipse at 84% 86%,rgba(120,14,6,.36),transparent 48%);
+  animation:fogBreath 3s ease-in-out infinite}
+.blood-fog.on{opacity:1}
+@keyframes fogBreath{0%,100%{transform:scale(1);filter:blur(6px)}50%{transform:scale(1.045);filter:blur(9px)}}
+
+/* ============ 折卡动画：裂开翻转坠落 ============ */
+.card-split{position:fixed;z-index:9100;pointer-events:none;perspective:1000px}
+.card-split>div{position:absolute;inset:0;backface-visibility:hidden;will-change:transform,opacity;transition:transform 1s cubic-bezier(.5,.02,.9,.4),opacity 1s ease}
+.card-split .fall-left.go{transform:translateX(-380px) translateY(480px) rotateY(-82deg) rotate(-16deg);opacity:0}
+.card-split .fall-right.go{transform:translateX(380px) translateY(480px) rotateY(82deg) rotate(16deg);opacity:0}
+#view-table.screen-shake{animation:bigShake .62s cubic-bezier(.36,.07,.19,.97)}
+@keyframes bigShake{
+  10%{transform:translate(-9px,5px)}20%{transform:translate(10px,-6px)}
+  30%{transform:translate(-8px,-4px)}40%{transform:translate(7px,7px)}
+  50%{transform:translate(-6px,5px)}60%{transform:translate(6px,-6px)}
+  70%{transform:translate(-4px,3px)}80%{transform:translate(3px,-3px)}90%{transform:translate(-1px,1px)}}
+
+/* ============ 卡牌边缘黑烟 ============ */
+.smoke-host{position:absolute;inset:0;pointer-events:none;z-index:8}
+.smoke-host i{position:absolute;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;
+  background:radial-gradient(circle,rgba(52,40,32,.9),rgba(28,20,15,.35) 62%,transparent 78%);
+  filter:blur(2px);opacity:0;animation:smokeRise 1.7s ease-out forwards}
+@keyframes smokeRise{
+  0%{transform:translate(0,0) scale(.5);opacity:.75}
+  60%{opacity:.5}
+  100%{transform:translate(7px,-52px) scale(2);opacity:0}}
+
+/* ============ 倒计时核心（视觉压迫中心） ============ */
+.days-core{display:flex;align-items:center;gap:14px;padding:8px 30px;border-radius:3px;
+  background:linear-gradient(180deg,rgba(30,18,10,.88),rgba(14,8,5,.92));border:1px solid var(--gold-line);
+  box-shadow:inset 0 1px 0 rgba(240,217,160,.12),0 0 42px -8px rgba(170,45,30,.5),0 10px 26px rgba(0,0,0,.55)}
+.dc-lbl{font-size:12px;letter-spacing:.26em;color:var(--ink3)}
+.dc-num{font-size:52px;font-weight:900;color:#e8b0a0;line-height:1;font-variant-numeric:tabular-nums;text-shadow:0 0 30px rgba(200,90,60,.75);animation:dcPulse 1.6s ease-in-out infinite}
+.dc-den{font-size:13px;color:var(--ink3);letter-spacing:.14em}
+@keyframes dcPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+
+/* ============ 俺寻思：川渝碎碎念 ============ */
+.rumi-btn{padding:13px 30px;border-radius:3px;cursor:pointer;
+  font-family:var(--qihei);font-size:14.5px;font-weight:700;letter-spacing:.06em;color:#ffd9c0;
+  background:linear-gradient(180deg,rgba(120,42,26,.5),rgba(52,18,8,.6));border:1px solid rgba(190,80,58,.65);
+  box-shadow:0 1px 0 rgba(255,210,180,.14) inset,0 8px 22px rgba(0,0,0,.5),0 0 20px -6px rgba(200,80,60,.45);
+  transition:.2s}
+.rumi-btn:hover{filter:brightness(1.15);transform:translateY(-2px)}
+.rumi-btn:active{transform:none}
+.rumi-btn .small{display:block;font-weight:400;font-size:10px;letter-spacing:.1em;color:#d9a08a;margin-top:4px}
+.rumi-bubble{position:fixed;z-index:9200;transform:translate(-50%,-100%) scale(.8);opacity:0;transition:.22s cubic-bezier(.2,.9,.3,1.2);
+  background:linear-gradient(180deg,#2c170c,#150a05);border:1px solid rgba(200,90,70,.65);color:#ffd9c0;
+  font-family:var(--qihei);font-size:14px;padding:12px 18px;border-radius:10px;max-width:300px;line-height:1.75;text-align:center;
+  box-shadow:0 14px 34px rgba(0,0,0,.65),0 0 26px -6px rgba(200,80,60,.5);pointer-events:none}
+.rumi-bubble.show{opacity:1;transform:translate(-50%,-100%) scale(1)}
+.rumi-bubble::after{content:"";position:absolute;left:50%;bottom:-9px;transform:translateX(-50%);border:9px solid transparent;border-top-color:#150a05}
+.rumi-roar{position:fixed;z-index:9210;transform:translate(-50%,-100%) scale(.6);opacity:0;transition:.16s cubic-bezier(.2,1.4,.3,1.2);
+  background:radial-gradient(ellipse at center,rgba(74,14,8,.96),rgba(26,5,2,.98));border:2px solid rgba(255,90,60,.9);
+  color:#ffe6d4;font-family:var(--qihei);font-weight:700;
+  font-size:clamp(24px,2.8vw,52px);padding:clamp(16px,1.6vw,30px) clamp(26px,2.4vw,52px);border-radius:14px;
+  max-width:min(92vw,900px);line-height:1.5;text-align:center;letter-spacing:.04em;
+  box-shadow:0 0 60px rgba(200,40,20,.55),0 18px 46px rgba(0,0,0,.8),0 0 34px -4px rgba(255,80,50,.7);
+  text-shadow:0 0 12px rgba(255,90,60,.9),0 0 30px rgba(255,40,20,.6);pointer-events:none}
+.rumi-roar.show{opacity:1;transform:translate(-50%,-100%) scale(1)}
+.roar-text{display:inline-block;animation:roarText .08s infinite}
+@keyframes roarText{
+  0%,100%{transform:translate(0,0) rotate(0deg)}
+  25%{transform:translate(.6px,-.5px) rotate(.4deg)}
+  50%{transform:translate(-.6px,.4px) rotate(-.5deg)}
+  75%{transform:translate(.4px,.6px) rotate(.3deg)}
+}
+
+/* ============ 分辨率自适应（4K 放大 / 小屏收拢） ============ */
+.table-layout{gap:clamp(12px,1vw,26px)}
+.card{width:clamp(170px,11vw,320px)}
+.table-cards{gap:clamp(20px,1.6vw,38px)}
+.table-cards .card{width:clamp(180px,11.5vw,340px)}
+.reveal-card{width:clamp(200px,12vw,360px)}
+.reveal-card .card{width:100%}
+.law-panel{width:clamp(280px,18vw,480px)}
+.law-panel .lt{font-size:clamp(22px,1.7vw,38px);margin-bottom:clamp(12px,.9vw,20px);padding-bottom:clamp(8px,.6vw,14px)}
+.law-item{padding:clamp(11px,.8vw,18px) 0;font-size:clamp(13px,.9vw,20px)}
+.c-title{font-size:clamp(13.5px,.95vw,21px)}
+.c-goal{margin-top:clamp(3px,.3vw,6px);font-size:clamp(12px,.85vw,18px);line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.c-hint{margin-top:clamp(3px,.3vw,6px);font-size:clamp(11.5px,.8vw,17px);line-height:1.5}
+.c-foot{font-size:clamp(7.5px,.42vw,10px);padding-top:clamp(3px,.25vw,5px)}
+.days-core{padding:clamp(6px,.55vw,13px) clamp(22px,2vw,46px);gap:clamp(10px,.9vw,20px)}
+.dc-lbl{font-size:clamp(11px,.75vw,16px)}
+.dc-num{font-size:clamp(40px,3.4vw,120px)}
+.dc-den{font-size:clamp(12px,.8vw,17px)}
+/* 倒计时压迫色阶：倒数第三天微红 → 第二天更红 → 第一天鲜红 */
+.days-core .dc-num{transition:color .5s ease,text-shadow .5s ease}
+.days-core .dc-num.w3{color:#e8967e;text-shadow:0 0 14px rgba(232,110,80,.45)}
+.days-core .dc-num.w2{color:#ff5a45;text-shadow:0 0 18px rgba(255,80,50,.75)}
+.days-core .dc-num.w1{color:#ff2e1f;text-shadow:0 0 22px rgba(255,40,25,.95),0 0 42px rgba(255,30,20,.4)}
+.task-paper{width:100%;max-width:1180px;padding:clamp(16px,1.2vw,26px) clamp(22px,1.6vw,34px)}
+.task-head .t{font-size:clamp(14px,.95vw,20px)}
+.task-item .tt{font-size:clamp(14px,.95vw,20px)}
+.task-item .tg{margin-top:clamp(3px,.3vw,7px);font-size:clamp(12.5px,.85vw,18px)}
+.task-hint{margin-top:clamp(5px,.4vw,9px);font-size:clamp(11.5px,.8vw,17px)}
+.phase-box{width:100%;max-width:1180px;padding:clamp(13px,1vw,22px) clamp(20px,1.5vw,34px);font-size:clamp(13.5px,.9vw,19px)}
+.event-bar{width:100%;max-width:1180px;padding:clamp(10px,.8vw,18px) clamp(20px,1.5vw,32px);font-size:clamp(13px,.85vw,18px)}
+.table-actions{gap:clamp(10px,1vw,22px)}
+.turn-btn,.done-btn{padding:clamp(13px,.9vw,20px) clamp(32px,2.4vw,64px);font-size:clamp(14px,.95vw,20px)}
+.rumi-btn{padding:clamp(11px,.8vw,18px) clamp(22px,1.7vw,42px);font-size:clamp(13.5px,.9vw,19px)}
+.deck-stack{width:clamp(140px,9.4vw,300px);height:auto;aspect-ratio:150/216;margin-bottom:clamp(22px,1.8vw,40px)}
+.deck-card{width:100%;height:100%}
+.draw-card-temp{width:clamp(140px,9.4vw,300px);height:auto;aspect-ratio:150/216}
+.deck-hint{font-size:clamp(15px,1.1vw,24px)}
+.paper{width:clamp(400px,32vw,900px);padding:clamp(32px,2.6vw,60px) clamp(30px,2.4vw,56px)}
+.paper-title{font-size:clamp(20px,1.4vw,32px)}
+.paper-sub{margin-top:clamp(8px,.6vw,14px);font-size:clamp(13px,.9vw,18px)}
+.paper-input{margin-top:clamp(20px,1.5vw,34px);padding:clamp(11px,.85vw,18px) clamp(14px,1vw,22px);font-size:clamp(15px,1vw,20px)}
+.paper-btn{margin-top:clamp(18px,1.4vw,30px);padding:clamp(11px,.85vw,18px) clamp(32px,2.6vw,60px);font-size:clamp(14px,.95vw,20px)}
+.start-crown{margin-bottom:clamp(16px,1.3vw,28px);font-size:clamp(34px,2.5vw,60px)}
+.start-title{font-size:clamp(40px,3.3vw,84px)}
+.start-title-wrap{padding:clamp(10px,.8vw,18px) clamp(28px,2.2vw,52px)}
+.start-sub{margin-top:clamp(10px,.8vw,18px);font-size:clamp(14px,.95vw,20px)}
+.btn-main{margin-top:clamp(32px,2.6vw,56px);padding:clamp(13px,1vw,22px) clamp(36px,3vw,70px);font-size:clamp(15px,1vw,21px)}
+.start-op{margin-top:clamp(12px,1vw,22px);font-size:clamp(12px,.8vw,17px)}
+.reveal-inner{max-width:min(860px,94vw);padding:clamp(18px,1.3vw,30px) clamp(20px,1.5vw,34px)}
+.reveal-label{font-size:clamp(11px,.7vw,14px);margin-bottom:clamp(8px,.5vw,12px)}
+.reveal-text{font-size:clamp(14px,.95vw,19px)}
+.card-hint{font-size:clamp(14px,1vw,19px);margin-bottom:clamp(8px,.5vw,12px)}
+.btn-choice{padding:clamp(12px,.9vw,20px) clamp(14px,1vw,24px);font-size:clamp(13px,.85vw,18px)}
+.complete-inner{padding:clamp(40px,3.2vw,72px) clamp(36px,2.8vw,64px)}
+.complete-eyebrow{font-size:clamp(12px,.85vw,18px);margin-bottom:clamp(16px,1.3vw,28px)}
+.complete-title{font-size:clamp(30px,2.2vw,64px);margin-bottom:clamp(18px,1.5vw,32px)}
+.complete-text{font-size:clamp(15px,1vw,22px);margin-bottom:clamp(20px,1.6vw,34px)}
+.complete-ask{font-size:clamp(20px,1.5vw,34px);margin-bottom:clamp(26px,2vw,44px)}
+.again-btn,.leave-btn{padding:clamp(13px,1vw,22px) clamp(30px,2.4vw,56px);font-size:clamp(14px,1vw,21px)}
+.settle-death{font-size:clamp(64px,5.6vw,160px)}
+.settle-sub{margin-top:clamp(16px,1.3vw,28px);font-size:clamp(15px,1.1vw,24px)}
+.settle-text{margin-top:clamp(22px,1.8vw,38px);font-size:clamp(14px,.95vw,21px)}
+.settle-roll{margin-top:clamp(20px,1.6vw,34px);font-size:clamp(12px,.8vw,17px)}
+.btn-restart{margin-top:clamp(30px,2.4vw,52px);padding:clamp(13px,1vw,22px) clamp(36px,2.8vw,64px);font-size:clamp(14px,.95vw,21px)}
+.event-title{font-size:clamp(22px,1.6vw,40px)}
+.event-desc{font-size:clamp(14px,.95vw,21px)}
+.event-goal{font-size:clamp(13px,.85vw,18px)}
+.event-btn{padding:clamp(12px,.9vw,20px) clamp(30px,2.4vw,56px);font-size:clamp(13px,.85vw,18px)}
+.time-roll .tr-num{font-size:clamp(48px,4vw,110px)}
+
+/* ============ 钟声与催促：提亮 + 排版优化 ============ */
+.phase-box{padding:clamp(15px,1.1vw,24px) clamp(22px,1.7vw,38px) clamp(14px,1vw,22px);line-height:2.1}
+.phase-box .pt{font-size:clamp(12px,.85vw,18px);letter-spacing:.3em;color:#f0d9a0;margin-bottom:clamp(7px,.6vw,12px);text-shadow:0 0 12px rgba(214,176,92,.55),0 2px 4px rgba(0,0,0,.9)}
+.phase-box .hl-red{color:#ef6a52;text-shadow:0 0 10px rgba(220,70,40,.55)}
+.phase-box.pulse{border-color:rgba(190,80,60,.85)}
+
+/* ============ 折卡：放大颤抖 → 变黑 → 猛折 ============ */
+.doom-veil{position:fixed;inset:0;z-index:19;background:radial-gradient(ellipse at 50% 45%,rgba(64,9,4,.55),rgba(8,2,2,.96) 78%),#050202;opacity:0;pointer-events:none;transition:opacity 3.2s linear}
+.doom-veil.on{opacity:.94}
+.doom-veil.deep{opacity:1;background:#000;transition:opacity .45s linear,background .45s}
+.doom-flash{position:fixed;inset:0;z-index:57;background:radial-gradient(ellipse at 50% 45%,rgba(255,238,195,.96),rgba(255,150,60,.55) 55%,rgba(60,10,4,.4));opacity:0;pointer-events:none}
+.doom-flash.on{opacity:1}
+/* 裂痕（SVG 蔓延） */
+.card-crack{position:absolute;inset:0;z-index:9;pointer-events:none;opacity:0;transition:opacity .1s}
+.card.cracking .card-crack{opacity:1}
+.card-crack path{fill:none;stroke:rgba(246,228,176,.95);stroke-width:1.6;stroke-dasharray:700;stroke-dashoffset:700;filter:drop-shadow(0 0 5px rgba(255,190,80,.85))}
+.card.cracking .card-crack path{animation:crackDraw .55s ease-out forwards}
+@keyframes crackDraw{to{stroke-dashoffset:0}}
+/* 折卡提权克隆体：绝对浮于黑幕之上，保持鲜艳 */
+.ghost-card{position:fixed;z-index:5000;margin:0;transform-origin:center;will-change:transform;pointer-events:none;box-shadow:0 40px 110px rgba(0,0,0,.65),0 0 60px -12px rgba(255,205,110,.25)}
+/* 屏幕花屏/扭曲 */
+.glitchfx{animation:glitchKf .45s steps(2) both}
+@keyframes glitchKf{
+  0%{filter:none;transform:none}
+  15%{filter:hue-rotate(35deg) contrast(1.7) saturate(2.2);transform:translateX(12px) skewX(-4deg)}
+  35%{filter:hue-rotate(-50deg) contrast(1.9) brightness(1.5);transform:translate(-14px,5px) skewX(5deg)}
+  55%{filter:hue-rotate(95deg) invert(.1) saturate(2.4);transform:translate(10px,-7px) skewX(-3deg)}
+  75%{filter:saturate(2.6) contrast(1.5);transform:translateX(-8px) skewX(2deg)}
+  100%{filter:none;transform:none}
+}
+#view-table.doom .table-cards .card{transform:scale(var(--doomScale,1.3)) translateY(-3vh);filter:brightness(1.22) saturate(1.15);z-index:25;animation:cardGlow .8s ease-in-out infinite;transition:transform 3.2s cubic-bezier(.16,.9,.2,1),filter 3.2s ease}
+#view-table.doom.tremble .table-cards .card{animation:cardGlow .8s ease-in-out infinite,cardTremble .34s linear infinite}
+@keyframes cardGlow{
+  0%,100%{box-shadow:0 0 30px 2px rgba(255,180,60,.4),0 0 0 0 rgba(200,60,30,0),0 22px 48px rgba(0,0,0,.7)}
+  50%{box-shadow:0 0 70px 10px rgba(255,170,40,.6),0 0 130px 24px rgba(190,50,25,.32),0 22px 48px rgba(0,0,0,.7)}}
+@keyframes cardTremble{
+  0%{transform:scale(1.3) translate(0,0) rotate(0deg)}
+  15%{transform:scale(1.3) translate(-5px,3px) rotate(-1.1deg)}
+  30%{transform:scale(1.3) translate(5px,-3px) rotate(1.1deg)}
+  45%{transform:scale(1.3) translate(-4px,-3px) rotate(-.9deg)}
+  60%{transform:scale(1.3) translate(4px,3px) rotate(.9deg)}
+  80%{transform:scale(1.3) translate(-3px,2px) rotate(-.7deg)}
+  100%{transform:scale(1.3) translate(3px,-2px) rotate(.7deg)}}
+.card-split .fall-left.go.burst{transition:transform .42s cubic-bezier(.55,.03,.92,.36),opacity .38s ease;transform:translateX(-560px) translateY(700px) rotateY(-118deg) rotate(-34deg) scale(.92);opacity:0}
+.card-split .fall-right.go.burst{transition:transform .42s cubic-bezier(.55,.03,.92,.36),opacity .38s ease;transform:translateX(560px) translateY(700px) rotateY(118deg) rotate(34deg) scale(.92);opacity:0}
+
+/* ============ 恐怖谷：再来一局幽灵字 ============ */
+.ghost-text{position:fixed;z-index:9400;transform:translate(-50%,-50%);font-family:var(--brush);font-size:clamp(20px,1.5vw,34px);letter-spacing:.14em;white-space:nowrap;color:rgba(140,26,16,.88);text-shadow:0 0 12px rgba(170,40,25,.65),0 2px 4px rgba(0,0,0,.85);pointer-events:none;animation:ghostTremble .09s linear infinite,ghostFade .95s ease-out forwards}
+@keyframes ghostTremble{
+  0%{transform:translate(-50%,-50%) translate(0,0)}
+  25%{transform:translate(-50%,-50%) translate(-1.5px,.8px)}
+  50%{transform:translate(-50%,-50%) translate(1.5px,-.8px)}
+  75%{transform:translate(-50%,-50%) translate(-.8px,-.8px)}
+  100%{transform:translate(-50%,-50%) translate(.8px,.8px)}}
+@keyframes ghostFade{0%{opacity:0}18%{opacity:.92}65%{opacity:.6}100%{opacity:0}}
+
+/* 第二周目开场诡语 */
+.start-op.creep{color:#d89a8a;letter-spacing:.08em;line-height:2;max-width:min(720px,60vw);text-shadow:0 0 14px rgba(160,40,25,.4)}
+</style>
+</head>
+
+<body>
+
+<!-- ===== 开始页 ===== -->
+<div class="view" id="view-start">
+  <div class="start-crown">☩</div>
+  <div class="start-title-wrap">
+    <div class="gold-particles"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="start-title serif">王座的游戏</div>
+  </div>
+  <div class="start-sub">DELTA CONTRACT · 起源电竞</div>
+  <button class="btn-main" id="btnStart">踏入轮回</button>
+  <div class="start-op" id="startOp">欢迎回来，干员。</div>
+</div>
+
+<!-- ===== 登记页 ===== -->
+<div class="view" id="view-register">
+  <div class="paper">
+    <div class="paper-title">干 员 登 记</div>
+    <div class="paper-sub">契约文书已备，只待落款。<br>请问干员尊名是——</div>
+    <input class="paper-input" id="opNameInput" maxlength="12" placeholder="在此写下你的尊名">
+    <button class="paper-btn" id="btnRegister">立 契</button>
+  </div>
+</div>
+
+<!-- ===== 抽卡页 ===== -->
+<div class="view" id="view-draw">
+  <div class="draw-top">
+    <div class="operator-tag">干员 <b id="opNameDraw">—</b> 前来领契</div>
+  </div>
+  <div class="draw-layout">
+    <aside class="law-panel" id="lawPanel">
+      <div class="law-panel-inner">
+        <div class="lt">契 约 律 法</div>
+        <div class="law-item"><div class="law-head">七局销卡</div><div class="law-body">每抽一张王座卡，独立开始七局倒计时。每进入一局，则需老板手动标记倒计时后退（点击即可）。归零仍未完成，<b>保底翻倍</b>。</div></div>
+        <div class="law-item"><div class="law-head">再疯狂一点</div><div class="law-body">开启后，本局可同时挂两张卡。两张卡需在七局内完成，同时进行。</div></div>
+        <div class="law-item"><div class="law-head">根据牌面等级，完成条件也各不相同</div><div class="law-body">即石级卡面只能完成石级目标，银级卡面则必须完成银级目标，以此类推。</div></div>
+        <div class="law-item"><div class="law-head">祂的低语</div><div class="law-body">每局结算后，【祂】可能低语。接受挑战触发特殊事件，分两类：<b>针对打手</b>——未完成加 <b>50W 保底</b>，完成则无事发生、触发失望结果；<b>针对你本身</b>——完成加 <b>50W 保底</b>，未完成则触发牠的叹息。事件必须<b>当局内完成</b>，过期/下一局则无效。</div></div>
+      </div>
+    </aside>
+    <div class="deck-zone">
+      <div class="deck-stack" id="deckVisual">
+        <span class="crown-mini">♛</span>
+        <div class="deck-card d1"></div>
+        <div class="deck-card d2"></div>
+        <div class="deck-card d3"></div>
+      </div>
+      <div class="deck-hint">点击牌堆，<span class="tap">抽一张王座卡</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 揭示层 ===== -->
+<div class="reveal-overlay" id="revealOverlay">
+  <div class="reveal-inner">
+    <div class="reveal-card" id="revealCard"></div>
+    <div class="reveal-body">
+      <div class="reveal-label">干员，亲启</div>
+      <div class="reveal-text" id="revealText"></div>
+      <div class="reveal-actions" id="revealActions"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 卡桌页 ===== -->
+<div class="view" id="view-table">
+  <div class="table-top">
+    <div class="op">干员 <b id="opNameTable">—</b> · 契约执行中</div>
+  </div>
+  <div class="table-layout">
+    <aside class="law-panel">
+      <div class="law-panel-inner">
+        <div class="lt">契 约 律 法</div>
+        <div class="law-item"><div class="law-head">七局销卡</div><div class="law-body">每抽一张王座卡，独立开始七局倒计时。每进入一局，则需老板手动标记倒计时后退（点击即可）。归零仍未完成，<b>保底翻倍</b>。</div></div>
+        <div class="law-item"><div class="law-head">再疯狂一点</div><div class="law-body">开启后，本局可同时挂两张卡。两张卡需在七局内完成，同时进行。</div></div>
+        <div class="law-item"><div class="law-head">根据牌面等级，完成条件也各不相同</div><div class="law-body">即石级卡面只能完成石级目标，银级卡面则必须完成银级目标，以此类推。</div></div>
+        <div class="law-item"><div class="law-head">系统低语</div><div class="law-body">每局结算后，系统可能低语。接受挑战触发特殊事件，分两类：<b>针对打手</b>——未完成加 <b>50W 保底</b>，完成则无事发生、系统失望；<b>针对你本身</b>——完成加 <b>50W 保底</b>，未完成则系统叹息。事件仅<b>本局</b>有效，结算后即作废。</div></div>
+      </div>
+    </aside>
+    <div class="table-main">
+    <div class="days-core">
+      <span class="dc-lbl">⧗ 处刑倒计时</span>
+      <span class="dc-num" id="daysNum">7</span>
+      <span class="dc-den">/ 7局</span>
+    </div>
+    <div class="table-cards" id="tableCards"></div>
+    <div class="task-paper">
+      <div class="task-head"><span class="tick">◈</span><span class="t">契 约 任 务</span></div>
+      <div id="taskList"></div>
+    </div>
+    <div class="phase-box" id="phaseBox"><span class="pt">契 约 在 催 促</span><span id="phaseText">七局之内，让这张卡在你的枪火中灰飞烟灭。</span></div>
+    <div class="event-bar" id="eventBar" style="display:none"></div>
+    <div class="table-actions">
+      <button class="rumi-btn" id="btnRumi">让老子想一哈儿<span class="small">王宇昊的嘀嘀咕咕</span></button>
+      <button class="turn-btn" id="btnNext">下一局，再战<span class="small">老板打完一局后点击 · 倒计时 -1</span></button>
+      <button class="done-btn" id="btnDone">已完成，结算<span class="small">契约达成 · 拿保底撤离</span></button>
+    </div>
+  </div>
+  </div>
+</div>
+
+<!-- ===== 完成页（已完成契约） ===== -->
+<div class="view" id="view-complete">
+  <div class="complete-inner">
+    <div class="complete-eyebrow">七 局 已 成 · 契 约 了 结</div>
+    <div class="complete-title">新的轮回已经开始了。</div>
+    <div class="complete-text">你瘫坐在现实的阴影里，视网膜上还残留着敌人倒下的残影。你早已分不清屏幕外是白天还是黑夜，时间在你的感官里化成了粘稠的泥沼。只有哈夫币沉入仓库时，那一声声冰冷而沉闷的脆响，才能短暂地缝补你即将崩溃的神智。</div>
+    <div class="complete-ask">结束了？真的结束了吗？……</div>
+    <div class="complete-actions">
+      <button class="again-btn" id="btnAgain">再来一局，再来一局！<small>新的契约，新的轮回</small></button>
+      <button class="leave-btn" id="btnLeave">爷不奉陪了！<small>就此撤离，了结契约</small></button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 结算页 ===== -->
+<div class="view" id="view-settle">
+  <div class="settle-death" id="settleDeath">死契</div>
+  <div class="settle-sub" id="settleSub">七局已尽 · 无可挽回</div>
+  <div class="settle-text" id="settleText"></div>
+  <div class="settle-roll" id="settleRoll"></div>
+  <button class="btn-restart" id="btnRestart">回到开始 · 再入轮回</button>
+</div>
+
+<!-- ===== 事件弹层（系统的低语） ===== -->
+<div class="reveal-overlay" id="eventOverlay">
+  <div class="reveal-inner event-inner">
+    <div class="event-body" id="eventBody"></div>
+  </div>
+</div>
+
+<div class="banner" id="banner"></div>
+<div class="blood-fog" id="bloodFog"></div>
+<div class="doom-veil" id="doomVeil"></div>
+<div class="doom-flash" id="doomFlash"></div>
+
+<script>
+const POOL = [
+  {type:'杀戮',lv:'rock',title:'石·杀戮',goal:'七局累计击杀 <b>12 名</b> 真人玩家',hint:'第一个人倒下时，抽搐的肌肉和暗红色的泥泞，会替你记住这个开始。',target:'初次开刃'},
+  {type:'杀戮',lv:'bronze',title:'铜·杀戮',goal:'七局累计击杀 <b>15 名</b> 真人玩家',hint:'你的子弹上刻下了谁的名字？',target:'枪下亡魂'},
+  {type:'杀戮',lv:'silver',title:'银·杀戮',goal:'七局内累计击杀 <b>18 名</b> 真人玩家并撤离',hint:'你似乎杀红了眼……但是没关系，王不在乎，你不在乎。',target:'王不在乎'},
+  {type:'杀戮',lv:'gold',title:'金·杀戮',goal:'七局内累计击杀 <b>21 名</b> 真人玩家并撤离',hint:'他们这辈子唯一一件错事，便是挡在了你的枪前。但这也是他们最后一次目睹那绽放的枪火了。',target:'你从地狱回来了，我尊敬的主人……'},
+  {type:'奢靡',lv:'rock',title:'石·奢靡',goal:'七局累计带出 <b>≥ 30格 </b> 金色物资',hint:'金灿灿的物件挤压着背包。你听着它们相互碰撞的脆响，感觉可以把尸山血海抛之脑后了。',target:'第一桶金'},
+  {type:'奢靡',lv:'bronze',title:'铜·奢靡',goal:'七局累计带出 <b>≥ 40格 </b> 金色物资',hint:'是运气？还是……？哎呀，别忘了，擦擦金币上的血迹吧。',target:'满包压仓'},
+  {type:'奢靡',lv:'silver',title:'银·奢靡',goal:'七局内累计带出 <b>≥ 48格</b>金色物资，及 <b> 3个红色物品（大小红都算）</b> 。',hint:'红色物品的加入会让你感到脊背发颤吗？',target:'红金同眠'},
+  {type:'奢靡',lv:'gold',title:'金·奢靡',goal:'七局内累计带出 <b>≥ 56格</b>金色物资，及<b>1个大红（价值大于50W）</b>。',hint:'你听见哈夫币在歌唱，但那是你的幻听，还是你的欲望在作祟？',target:'富可敌国'},
+  {type:'纵欲',lv:'rock',title:'石·纵欲',goal:'七局内必有一局单局带出 <b>≥1200w</b>的物资',hint:'我闻到了，是贪婪的味道。',target:'咀嚼贪婪'},
+  {type:'纵欲',lv:'bronze',title:'铜·纵欲',goal:'七局内必有一局单局带出 <b>≥1350w</b>的物资',hint:'嘘……我听见炸仓的回响。',target:'吃不下了是什么意思？'},
+  {type:'纵欲',lv:'silver',title:'银·纵欲',goal:'七局内必有一局单局带出 <b>≥1450w</b>的物资',hint:'如果可以的话，你甚至会在点滴里都打满哈夫币，我说的没错吧？',target:'液体黄金'},
+  {type:'纵欲',lv:'gold',title:'金·纵欲',goal:'七局内必有一局单局带出 <b>≥1650w</b>的物资',hint:'是谁说只有龙才爱收集财宝？而你与七宗罪的区别又是什么？',target:'暴食之罪'},
+  {type:'征服',lv:'rock',title:'石·征服',goal:'单局<b>22分钟内</b>清图。',hint:'滴答，滴答，滴答……我给你的时间够多了。',target:'屠城'},
+  {type:'征服',lv:'bronze',title:'铜·征服',goal:'单局<b>20分钟内</b>清图。',hint:'有感到呼吸急促吗？',target:'呼吸共振'},
+  {type:'征服',lv:'silver',title:'银·征服',goal:'单局<b>18分钟内</b>清图。',hint:'我听见渡鸦的讯息，它在给谁唱哀歌？',target:'渡鸦报丧'},
+  {type:'征服',lv:'gold',title:'金·征服',goal:'单局<b>15分钟内</b>清图。',hint:'就算是死神也需要休息，而你？不。你比神更强大。',target:'万人之上'},
+];
+const LV_NAME={rock:'岩石',bronze:'青铜',silver:'白银',gold:'黄金'};
+const LV_ZH={rock:'石',bronze:'铜',silver:'银',gold:'金'};
+
+function getCardImg(c) {
+  return `cards_cutout/${c.type}（${LV_ZH[c.lv]}）.png`;
+}
+
+const TYPE_ICON={
+  杀戮:'<svg viewBox="0 0 24 24" fill="none"><path d="M14 3l4 4-2 2-4-4 2-2zM9 8l7 7-3 3-7-7 3-3z" fill="currentColor"/><path d="M5 19c1.6-2.6 4.6-4.4 8-5.4M19 5l-2 2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>',
+  奢靡:'<svg viewBox="0 0 24 24" fill="none"><rect x="5" y="9" width="14" height="9" rx="1" fill="currentColor" opacity=".85"/><path d="M8 9V7a4 4 0 0 1 8 0v2" stroke="currentColor" stroke-width="1.4"/><path d="M8 13h1M11 13h1M14 13h1" stroke="#0a0705" stroke-width=".9" stroke-linecap="round"/><path d="M7 18h10" stroke="#0a0705" stroke-width=".8"/></svg>',
+  纵欲:'<svg viewBox="0 0 24 24" fill="none"><path d="M6 4h12a1 1 0 0 1 1 1v11a5 5 0 0 1-5 5h-4a5 5 0 0 1-5-5V5a1 1 0 0 1 1-1Z" fill="currentColor" opacity=".85"/><path d="M8 9h8M8 13h8M8 17h5" stroke="#0a0705" stroke-width="1.2" stroke-linecap="round"/></svg>',
+  征服:'<svg viewBox="0 0 24 24" fill="none"><path d="M12 3l9 5-9 5-9-5 9-5z" fill="currentColor"/><path d="M3 11l9 5 9-5v6l-9 5-9-5v-6z" fill="currentColor" opacity=".55"/><path d="M12 13v8" stroke="currentColor" stroke-width="1.2"/></svg>'
+};
+const NARRATIVE={
+  杀戮:'冰冷的屏幕映出你收紧的眼神，十字准星是唯一的锚。耳机里呼吸粗重，混着机箱风扇的低吼，像某种古老野兽正被唤醒。<span class="hl">这一局，要么你活，要么它死。</span>怎么？见好就收？还是——<span class="cta">“再来一张？再来一张？再来一张！”</span>',
+  奢靡:'冰冷的屏幕反射出你热切的眼神，似是要将这几行代码灼出一个洞来。你听见耳机里传来自己粗重的呼吸声，和机箱风扇的轰鸣混杂在一起，像是某种古老野兽的低吼。怎么？选择浅尝辄止，见好就收？还是……<span class="cta">“再来一张？再来一张？再来一张！”</span>',
+  纵欲:'保险箱的金属冷光在屏幕上滚动，你的指尖在鼠标上摩挲。<span class="hl">贪婪像藤蔓缠上喉咙，越勒越紧，你却甘之如饴。</span>怎么？装一箱就撤，见好就收？还是……<span class="cta">“再来一张？再来一张？再来一张！”</span>',
+  征服:'满图的红点像俯视众生的棋盘，你在暗处计算着每一个人的死期。<span class="hl">征服的快意爬满脊背，你想让所有人成为你加冕的注脚。</span>怎么？见好就收？还是——<span class="cta">“再来一张？再来一张？再来一张！”</span>'
+};
+const GREED_TEXT='……老天，贪婪的欲望裹挟了你，有那么一瞬间，你仿佛看到有人餍足地闭上了眼睛。<span class="cta">这已是极限——两张契约，压在案上。</span>';
+const GREED_NARRATIVE={
+  杀戮:'……你舔了舔发干的嘴唇，准星里又倒了一个。杀戮的快感和贪婪搅在一起，舌尖泛着铁锈味——你已经数不清这是第几条人命，但你的手指还想再扣一次扳机。<span class="cta">这已是极限——两张契约，压在案上。</span>',
+  征服:'……地图上的红点又灭了一个，征服的版图在你脚下无声扩张。贪婪的野心像血泡一样鼓起来，你明知道戳破了会溅自己一脸，却还是想再画一条边界。<span class="cta">这已是极限——两张契约，压在案上。</span>',
+  奢靡:'……保险箱里的哈夫币还在滚动，你却已经在盘算下一把要往背包里塞什么。奢靡的胃口没有底，你扔进去的越多，它张得越大，到最后要吞的是你自己。<span class="cta">这已是极限——两张契约，压在案上。</span>',
+  纵欲:'……老天，贪婪的欲望裹挟了你，有那么一瞬间，你仿佛看到有人餍足地闭上了眼睛。<span class="cta">这已是极限——两张契约，压在案上。</span>'
+};
+const PHASE={
+  high:{pt:'钟 声 与 催 促',html:'沉闷的钟声在颅骨内敲响。灵魂正随着倒计时的跳动，被一丝丝剥离出躯壳。卡牌正散发着近乎灼伤手掌的温度，祂在低语：<span class="hl-red">去啊，去掠夺，去厮杀。趁你还有握枪的力气。</span>'},
+  low:{pt:'死 线 贴 颈',html:'死亡已经贴上了你的后颈。它的指甲嵌进皮肉，在颈椎上敲出和倒计时一样的节拍。让这张卡在你的枪火里灰飞烟灭。让挡路的脸灰飞烟灭。让倒计时的滴答声灰飞烟灭。让你脑子里那个喋喋不休的声音——那个比死亡更烦人的声音——<span class="hl-red">灰、飞、烟、灭</span>。开枪。开枪。开枪。开、枪。开枪开枪开枪开枪开枪开枪开枪开枪开枪开枪开枪开枪'},
+  mid:{pt:'契 约 在 催 促',html:'七局之内，让这张卡在你的枪火中灰飞烟灭。倒计时不会为你的犹豫而停下……你能感觉到有什么不知名的东西在看着你。'}
+};
+const SETTLE_TEXT='七局已尽，<span class="hl-red">死契</span>生效。<span class="hl-red">剩余保底翻倍</span>——你欠下的，祂会连本带利地取回。<span class="hl-red">毁灭</span>的钟声为你奏响，这是贪婪的代价。';
+
+const WHISPER_TEXTS=[
+  {eyebrow:'附 加 条 款',title:'一点小小的麻烦',desc:'“有人往你手里塞了一份附加条款。文字是用某种深褐色的液体写的，带着点铁锈味。它要求你在这局里做点出格的事。做成了，算你运气好；做不成，也没什么大不了的，只是你接下来的日子会变得相当麻烦。”'},
+  {eyebrow:'观 赏 位 置',title:'今天天气不错',desc:'“一份额外的差事。没什么特别的理由，大概只是因为今天外面的天气很好，祂想看点红色的东西来助兴。顺便一提，拒绝这个提议的话，之后的结算可能会变得稍微有些难看。你是个聪明人，应该懂得怎么选。”'},
+  {eyebrow:'剧 本 之 外',title:'这真有意思',desc:'“屏幕上闪过了新的提示，伴随着一声极轻的嗤笑。看来某位观众觉得你刚才那局玩得太无聊了，决定给你加点难度。这就是凡人的可悲之处——永远不知道自己在为谁表演。好啦，别愣着，接下它，然后继续你的滑稽戏。”'},
+  {eyebrow:'额 外 的 指 令',title:'去弄点血来',desc:'“耳边传来了一阵沙沙声，像是有人在翻动羊皮纸。随后，一道指令被强行塞进了你的脑子里。别紧张，不是什么要命的事，至少现在还不是。只不过如果你搞砸了，某位大人可能会对你感到非常失望。”'},
+  {eyebrow:'无 声 的 纵 容',title:'你疯你的，我看我的',desc:'“契约的背面浮现出了几行新的字迹。不是什么严厉的惩罚，更像是一个小小的恶作剧。祂似乎觉得，如果你在这局里稍微疯一点，会让整件事显得更加有趣。你可以选择拒绝，但聪明的疯子都知道该怎么讨金主欢心，对吧？”'},
+  {eyebrow:'不 速 之 客',title:'一个小小的测试',desc:'“这规则本不该出现在这里，但它就是出现了。既然多了一张嘴在暗处说话，那你最好还是照做。毕竟，在这个房间里，谁掌握着生杀大权，你心里比谁都清楚。去干吧，别让那只盯着你的眼睛失去耐心。”'},
+  {eyebrow:'打 手 的 命 运',title:'代价与筹码',desc:'“你的打手在屏幕里四处张望，完全不知道自己已经被当成了筹码。一道低语说，让他去做点危险的事。如果他能办到，那是他的荣幸；如果他搞砸了，哈，反正烂命一条，你还能白拿一笔补偿，不是吗？”'},
+  {eyebrow:'深 渊 的 呢 喃',title:'你在害怕什么？',desc:'“心跳声太吵了，吵得祂有点心烦。祂给了你一个平息心率的任务，去完成它，或者被这份恐惧彻底吞噬。别觉得委屈，在这个死局里，能成为被消遣的乐子，已经是你最大的价值了。”'},
+  {eyebrow:'绅 士 的 邀 请',title:'请慢用',desc:'“就像餐前的一杯开胃酒，这份突如其来的契约散发着令人作呕的甜腻。祂并没有强迫你接受，只是静静地把刀叉摆在了你的面前。至于你要用它来切牛排还是切别人的喉咙，祂都不介意。”'},
+  {eyebrow:'命 运 的 骰 子',title:'再押一注吧',desc:'“骰子已经停了，但你似乎还不想下桌。那正好，这里还有一个盘口，等着你用命来押注。赢了，拿走属于你的那份带血的金子；输了……哦，这种假设毫无意义，反正你本来也走不了了。”'}
+];
+
+const EVENTS=[
+  {
+    id:'dragon', kind:'worker', tellWorker:true,
+    eyebrow:'献 祭 仪 式 · 壹',
+    title:'白龙之皮，献于王座【告知打手】',
+    goal:'本局必须击杀一名白皮威龙，以祂之皮献祭。',
+    desc:'废墟深处那一抹纯白并非偶然——祂早已在名册上，一笔一划写下你的名字。此局之内，猎杀那头白龙，剥下祂的皮，将它呈上祭坛。这是你向王座献上的忠诚，也是你向深渊缴纳的赎金。',
+    done:{eyebrow:'祂 很 失 望',title:'无事发生',desc:'你的打手完成了目标。低语停滞了一瞬，随即像被掐断的电流般沉默下去——就像是什么失望的声音。没有筹码，没有赏赐，只有愈发深重的凝视。',goal:'祂很失望 · 无奖励'},
+    fail:{eyebrow:'祂 很 满 意',title:'打手失手了',desc:'你的打手没能完成目标。那道低语里透出一丝几不可闻的愉悦，仿佛早就料到了这个结果。50万哈夫币如约滑入你的口袋，带着一丝凉意——像是一笔补偿，又像是一句嘲弄。',goal:'保底 +50W · 已入账'}
+  },
+  {
+    id:'dance', kind:'self', tellWorker:false,
+    eyebrow:'献 祭 仪 式 · 贰',
+    title:'静默之舞，献于死神【无需告知】',
+    goal:'本局在静步期间跳”得吃舞”（1秒也算），且不能被陪玩发觉异常。',
+    desc:'死亡的寂静里，死神在等待一支舞。于静步的阴影中起舞吧，哪怕只有一秒——这是你在命运祭坛上点燃的烛火，献给那些注视着你的亡魂。瞒过陪玩们盲目的眼睛，别让他们惊扰这场献祭。若舞步被察觉，烛火熄灭，你便会成为被献上的那一个。',
+    done:{eyebrow:'祂 的 回 响',title:'你的疯狂取悦了它……',desc:'你抓住了自己的机会，犹如星尘一般在掌间闪耀。那笔额外的筹码——50万哈夫币，带着微热，妥帖地落入了你的口袋。你的疯狂取悦了它，你的心悸平息了。',goal:'保底 +50W · 已入账'},
+    fail:{eyebrow:'祂 的 回 响',title:'一声叹息',desc:'你放弃了那个机会，你听见了一声叹气，但什么都没发生，什么也没留下。额外的赏金如烟雾般消散。系统没有降下惩罚，只是不再看你。',goal:'祂的叹息 · 无奖励'}
+  },
+  {
+    id:'paint', kind:'self', tellWorker:false,
+    eyebrow:'献 祭 仪 式 · 叁',
+    title:'喷漆为证，血印献上【无需告知】',
+    goal:'本局在任意护航的脸上喷下一枚印记并截图留证（”喷漆截图”），即算献祭完成。',
+    desc:'伟大而仁慈的■■厌倦了言辞，祂现在只想看一样东西：你的疯狂，落在别人的脸上。此局之内，任何护航者的面容，都是牠留给你的画布。',
+    done:{eyebrow:'祂 的 回 响',title:'你的疯狂取悦了它……',desc:'你抓住了自己的机会，犹如星尘一般在掌间闪耀。那笔额外的筹码——50万哈夫币，带着微热，妥帖地落入了你的口袋。',goal:'保底 +50W · 已入账'},
+    fail:{eyebrow:'祂 的 回 响',title:'一声叹息',desc:'你放弃了那个机会，你听见了一声叹气，但什么都没发生。额外的赏金如烟雾般消散。',goal:'祂的叹息 · 无奖励'}
+  },
+  {
+    id:'spell', kind:'self', tellWorker:false,
+    eyebrow:'无 知 者 的 贡 品',
+    title:'滑稽的咒语【无需告知】',
+    goal:'本局内，护航每说出一句【吃包】/【哥/姐】，结算保底 <b>+10W</b>。老板不可故意引导，如出现此类情况，本随机事件作废。（上不封顶）',
+    desc:'你的打手们还不知道自己已经变成了某种会说话的金币。仔细听，祂在教你怎么数钱——护航的每一句【吃包】、每一次清脆的【哥/姐】，都在为你凭空生出一笔横财。这不仅是一场游戏，更是一场明码标价的杂耍。别嫌他们吵，那清脆的嗓音，全是钱币落袋的回音。',
+    done:{eyebrow:'杂 耍 收 尾',title:'杂耍结束',desc:'那些愚蠢的杂音终于停歇了。你的算盘打得噼啪作响，一笔笔带血的筹码被清点入账。祂看着你手里那叠因为几句废话而凭空多出来的保底，似乎觉得这出闹剧还算有趣。',goal:'按记录结算 · 已入账'},
+    fail:{eyebrow:'无 声 的 嗤 笑',title:'无声的怜悯',desc:'他们太安静了，安静得像一群死人。你什么都没捞到，连一枚铜板都没有。低语中传来一声几不可闻的嗤笑——连从蠢货嘴里抠点钱都不会，你真是让祂失望透顶。',goal:'无收入 · 事已至此'}
+  },
+  {
+    id:'english', kind:'worker', tellWorker:true,
+    eyebrow:'失 语 者 的 献 金',
+    title:'失语者的献金【告知打手】',
+    goal:'两位打手落地后只说英语；说错一句 <b>+10W</b> 保底；认输直接 <b>+200W</b> 保底。',
+    desc:'一场荒诞的强制游戏。让那些只懂粗话和黑话的脑子，去驱使舌头吐出异国的字句。他们每说错一次，你就多十万。如果他们被这折磨逼疯了，哭着认输，那就是两百万的进账。别去帮他们，别心软，就静静地看着他们在这不合时宜的规矩里滑稽地挣扎。',
+    done:{eyebrow:'祂 有 些 无 聊',title:'无趣的硬骨头',desc:'他们竟然硬生生地憋住了。那些蹩脚的异国语言并没有把他们的舌头打结，他们甚至没有向你低头。低语里传来一声轻哼——真没意思。那两百万的筹码，你终究是没拿到。',goal:'无额外奖励'},
+    fail:{eyebrow:'祂 极 为 满 意',title:'崩坏的声带',desc:'他们崩溃了，嘴里吐出了荒诞的单词，甚至叹气着认输。但这对你来说可是天大的喜讯，听着他们在屏幕里无能狂怒，看着筹码源源不断地滑入你的口袋。这可比杀几个人有趣多了，对吧？',goal:'认输结算 · 已入账'}
+  },
+  {
+    id:'dogtag', kind:'worker', tellWorker:true,
+    eyebrow:'猎 奇 的 标 本',
+    title:'富人的项圈【告知打手】',
+    goal:'本局打手需击杀并搜集 <b>3个</b> 230W以上战备的狗牌（无需带出，但需老板口头确认）。',
+    desc:'你突然对那些穿着昂贵战备的猎物产生了点兴趣。去告诉你的打手，扒下他们脖子上的狗牌，像收集战利品一样挑出三个最值钱的呈上来。不需要带出这片废墟，只要他们指给你看——毕竟，只要你看过、确认过，那条命就属于你了。',
+    done:{eyebrow:'理 所 当 然',title:'还算懂事',desc:'三枚沉甸甸的项圈被挑了出来，你满意地看过了。低语中听不出任何波澜，这本就是他们该做的。毕竟，用别人的命去换主子的赏心悦目，天经地义。至于筹码？别太贪心，你什么都没损失，不是吗？',goal:'祂觉得理所应当 · 无奖励'},
+    fail:{eyebrow:'真 没 意 思',title:'连狗牌都捡不明白',desc:'他们甚至没能从那些昂贵的尸体上取下凭证。低语里听不出愤怒，只有一种看戏看到一半被扫了兴致的索然无味。五十万哈夫币滑入了你的口袋。拿着吧，下一回可就没这么好运了。',goal:'保底 +50W · 已入账'}
+  },
+  {
+    id:'pavlov', kind:'self', tellWorker:false,
+    eyebrow:'提 线 木 偶 的 挽 歌',
+    title:'巴甫洛夫的猎犬【无需告知】',
+    goal:'撤离时，老板需在不打扰打手的情况下吹奏”嘉豪の小曲”。打手需忍耐本能 <b>5秒</b>（不游龙步、不13切枪、不嘉豪）。忍耐失败则保底 <b>+50W</b>。（若无口琴，直接 <b>+30W</b> 保底）。',
+    desc:'你打算掏出那个粗糙的口琴，像准备投入一粒迷药的看客。那些打手的脑子早被这串音符格式化了，只要前奏一响，他们就会像被牵动丝线的木偶，控制不住地扭动、切枪、发狂。去吹吧，趁着撤离的间隙，在他们毫无防备时吹奏。看看他们那点可怜的理智，能不能抵御这被驯化出的本能。',
+    done:{eyebrow:'乏 味 的 坚 持',title:'压制了本能',desc:'整整五秒，他们竟然像被按了暂停键一样僵硬在原地。没有游龙步，没有切枪，只有拼命压抑的痉挛。低语中传来一声无趣的轻哼。真可惜，他们居然抗住了这不可名状的召唤。你什么都没得到。',goal:'无事发生 · 无奖励'},
+    fail:{eyebrow:'难 以 违 抗 的 天 性',title:'肌肉的背叛',desc:'仅仅只是几个音符，他们的大脑就彻底宕机了。你眼睁睁看着他们不受控制地开始滑步、疯狂地切换武器，像极了某种听到铃声就流口水的实验品。低语里爆发出恶劣的笑声。五十万筹码落入你的口袋，收下吧，祂很愉悦。',goal:'保底 +50W · 已入账'}
+  },
+  {
+    id:'junkgun', kind:'worker', tellWorker:true,
+    eyebrow:'废 铁 的 处 刑',
+    title:'粗劣的缝合怪【告知打手】',
+    goal:'本局内，任意打手需使用”拼好枪”击杀一人。失败则保底 <b>+50W</b>。',
+    desc:'一堆粗劣的零件，几根勉强拼凑的钢管。你把这个荒谬的指令扔给了打手，就像高高在上的看客往斗兽场里扔了一把生锈的匕首，饶有兴致地看他们能不能用这堆破烂捅穿猎物的喉咙。如果这堆废铁卡了壳，或者他们被人用精良的武器轰碎了脑袋——那这五十万的筹码，就当是祂为你这场滑稽处刑买的一点乐子。',
+    done:{eyebrow:'粗 劣 的 奇 迹',title:'瞎猫碰上死耗子',desc:'那堆破铜烂铁居然真的响了，还带走了一条命。低语里传来一声意料之外的轻呼，随即又恢复了乏味。没有多余的赏赐，因为这本就是他们该做的。',goal:'祂觉得理所当然 · 无奖励'},
+    fail:{eyebrow:'毫 无 悬 念 的 败 局',title:'废铁与死狗',desc:'低语中传来一声无趣的叹息。他们显然搞砸了。也许是那堆破烂根本不堪大用，又或者是他们即便拿上了拼凑的武器，也依然是个软脚虾。这五十万保底，就当是打发这群无能者的遣散费。',goal:'保底 +50W · 已入账'}
+  }
+];
+
+function goodbyeText(name){
+  return `你松开了紧握鼠标的手，指关节因为过度用力而泛着病态的苍白。你亲手折断了那张卡，拒绝了深渊继续向你索取鲜血的诱惑。<br><br>恭喜你，<span class="hl-red">${name}</span>。你没有被贪婪彻底吞噬，你从这场疯狂的献祭中抽身而出，跳出了这用哈夫币堆砌的欲望轮回。<br><br>在这里，<b>起源电竞</b>向您的理智致敬。祝您在起源电竞的每一局，都能如这般清醒、愉悦。希望本次契约的体验能让您足够满意。若您有任何建议，请随时联系我们——我们会像倾听神谕一样，倾听您的声音。<br><br>愿星尘指引你的枪口。我们在下一个战局中……或许还能再见。`;
+}
+
+let state={name:'',cards:[],daysLeft:7,pending:[],drawCount:0,turnCount:0,bonus:0,event:null,eventBonus:0,whisperCount:0,lastWhisperTurn:-99,usedEvents:[]};
+const $=id=>document.getElementById(id);
+
+let AC=null;
+function ac(){ if(!AC) AC=new (window.AudioContext||window.webkitAudioContext)(); if(AC.state==='suspended')AC.resume(); return AC }
+let sndClick=null,sndCard=null;
+function sClick(){ try{ if(!sndClick){sndClick=new Audio('music/CLICK.mp3');sndClick.volume=.45;} sndClick.currentTime=0; sndClick.play(); }catch(e){} }
+function sCard(){ try{ if(!sndCard){sndCard=new Audio('music/card.wav');sndCard.volume=.6;} sndCard.currentTime=0; sndCard.play(); }catch(e){} }
+// 所有按钮点击统一播 CLICK（音量克制，不吵）
+document.addEventListener('click',e=>{const b=e.target&&e.target.closest?e.target.closest('button'):null;if(b)sClick();},true);
+function sCrack(){
+  try{const c=ac(),t=c.currentTime;
+    const d=.07,b=c.createBuffer(1,c.sampleRate*d,c.sampleRate),data=b.getChannelData(0);
+    for(let i=0;i<data.length;i++)data[i]=(Math.random()*2-1)*Math.pow(1-i/data.length,1.8);
+    const s=c.createBufferSource();s.buffer=b;
+    const f=c.createBiquadFilter();f.type='bandpass';f.frequency.value=4600;f.Q.value=1.3;
+    const g=c.createGain();g.gain.value=.7;
+    s.connect(f);f.connect(g);g.connect(c.destination);s.start(t);
+    const d2=.045,b2=c.createBuffer(1,c.sampleRate*d2,c.sampleRate),data2=b2.getChannelData(0);
+    for(let i=0;i<data2.length;i++)data2[i]=(Math.random()*2-1)*Math.pow(1-i/data2.length,2);
+    const s2=c.createBufferSource();s2.buffer=b2;
+    const f2=c.createBiquadFilter();f2.type='highpass';f2.frequency.value=2600;
+    const g2=c.createGain();g2.gain.setValueAtTime(.55,t+.05);g2.gain.exponentialRampToValueAtTime(.0001,t+.11);
+    s2.connect(f2);f2.connect(g2);g2.connect(c.destination);s2.start(t+.045);
+    // 5 个碎屑回响：高频细碎"哗啦"层
+    for(let k=0;k<5;k++){
+      const dd=.018+Math.random()*.05,off=.012+Math.random()*.09;
+      const bk=c.createBuffer(1,c.sampleRate*dd,c.sampleRate),dk=bk.getChannelData(0);
+      for(let i=0;i<dk.length;i++)dk[i]=(Math.random()*2-1)*Math.pow(1-i/dk.length,2.2);
+      const sk=c.createBufferSource();sk.buffer=bk;
+      const fk=c.createBiquadFilter();fk.type='bandpass';fk.frequency.value=3000+Math.random()*3600;fk.Q.value=2.6;
+      const gk=c.createGain();gk.gain.setValueAtTime(.26,t+off);gk.gain.exponentialRampToValueAtTime(.0001,t+off+dd*1.6);
+      sk.connect(fk);fk.connect(gk);gk.connect(c.destination);sk.start(t+off);
+    }
+  }catch(e){}
+}
+/* 特殊事件音乐 tata：低通柔化 + 淡入淡出，不突兀 */
+let tataEl=null,tataGain=null,tataFade=null;
+function tataPlay(){
+  try{
+    if(!tataEl){
+      const c=ac();
+      tataEl=new Audio('music/tata.mp3');tataEl.loop=true;
+      const src=c.createMediaElementSource(tataEl);
+      const f=c.createBiquadFilter();f.type='lowpass';f.frequency.value=2600;f.Q.value=.7;
+      tataGain=c.createGain();tataGain.gain.value=0;
+      src.connect(f);f.connect(tataGain);tataGain.connect(c.destination);
+    }
+    tataEl.play();
+    if(tataFade){clearTimeout(tataFade);tataFade=null;}
+    const c=ac(),t=c.currentTime;
+    tataGain.gain.cancelScheduledValues(t);
+    tataGain.gain.setValueAtTime(Math.max(tataGain.gain.value,0),t);
+    tataGain.gain.linearRampToValueAtTime(.34,t+.9);
+  }catch(e){}
+}
+function tataStop(){
+  try{
+    if(tataEl&&tataGain){
+      const c=ac(),t=c.currentTime;
+      tataGain.gain.cancelScheduledValues(t);
+      tataGain.gain.setValueAtTime(tataGain.gain.value,t);
+      tataGain.gain.linearRampToValueAtTime(0,t+1.1);
+      tataFade=setTimeout(()=>{try{tataEl.pause()}catch(e){}},1250);
+    }
+  }catch(e){}
+}
+function sHeartbeat(){
+  try{const c=ac(),t=c.currentTime;
+    const beat=(off,fq,du,vol)=>{const o=c.createOscillator(),g=c.createGain();o.type='sine';o.frequency.value=fq;g.gain.setValueAtTime(0,t+off);g.gain.linearRampToValueAtTime(vol,t+off+.012);g.gain.exponentialRampToValueAtTime(.0001,t+off+du);o.connect(g).connect(c.destination);o.start(t+off);o.stop(t+off+du+.05)};
+    beat(0,52,.13,.9);beat(.17,42,.11,.68);beat(.4,52,.13,.85);beat(.57,42,.11,.65);
+  }catch(e){}
+}
+function sTear(){
+  try{const c=ac(),t=c.currentTime,d=.55;const b=c.createBuffer(1,c.sampleRate*d,c.sampleRate);const data=b.getChannelData(0);
+    for(let i=0;i<data.length;i++)data[i]=(Math.random()*2-1)*Math.pow(1-i/data.length,1.2);
+    const s=c.createBufferSource();s.buffer=b;const f=c.createBiquadFilter();f.type='bandpass';f.frequency.value=2400;f.Q.value=.7;const g=c.createGain();g.gain.value=.5;s.connect(f);f.connect(g);g.connect(c.destination);s.start(t);
+  }catch(e){}
+}
+function sBone(){
+  try{const c=ac(),t=c.currentTime,d=.14;const b=c.createBuffer(1,c.sampleRate*d,c.sampleRate);const data=b.getChannelData(0);
+    for(let i=0;i<data.length;i++)data[i]=(Math.random()*2-1)*Math.pow(1-i/data.length,2);
+    const s=c.createBufferSource();s.buffer=b;const f=c.createBiquadFilter();f.type='lowpass';f.frequency.value=170;const g=c.createGain();g.gain.value=.85;s.connect(f);f.connect(g);g.connect(c.destination);s.start(t);
+  }catch(e){}
+}
+function sRumble(){
+  try{const c=ac(),t=c.currentTime,d=1.2;
+    const o=c.createOscillator(),g=c.createGain(),f=c.createBiquadFilter();
+    o.type='sine';o.frequency.setValueAtTime(34,t);o.frequency.exponentialRampToValueAtTime(64,t+d);
+    f.type='lowpass';f.frequency.value=150;
+    g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.55,t+d*.92);g.gain.exponentialRampToValueAtTime(.0001,t+d);
+    o.connect(f);f.connect(g);g.connect(c.destination);o.start(t);o.stop(t+d+.1);
+  }catch(e){}
+}
+
+function showView(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('show'));
+  $(id).classList.add('show');
+}
+
+function saveName(n){state.name=n;try{localStorage.setItem('sultan_op_name',n)}catch(e){}}
+function loadName(){try{return localStorage.getItem('sultan_op_name')||''}catch(e){return ''}}
+
+$('btnStart').addEventListener('click',()=>{
+  const old=loadName();
+  if(old){state.name=old;enterDrawPage();}
+  else{showView('view-register');setTimeout(()=>$('opNameInput').focus(),350);}
+});
+$('btnRegister').addEventListener('click',()=>{
+  const n=$('opNameInput').value.trim();
+  if(!n){$('opNameInput').focus();return}
+  saveName(n);sCard();enterDrawPage();
+});
+$('opNameInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('btnRegister').click()});
+function enterDrawPage(){
+  $('opNameDraw').textContent=state.name;
+  $('startOp').textContent=`干员 ${state.name}，契约在等你。`;
+  state.pending=[];state.drawCount=0;
+  showView('view-draw');
+}
+
+function cardHTML(c,big){
+  const img = c.img || getCardImg(c);
+  const art = `<div class="kill-art" style="background-image:url('${img}')"></div>`;
+  return `
+    <div class="card enter" data-lv="${c.lv}" data-id="${c.id||''}">
+      <div class="card-inner">
+        <div class="art-zone">${art}<div class="frame"></div><div class="gem"></div></div>
+        <div class="info-zone">
+          <div class="c-title">【${c.title}】</div>
+          <div class="c-hint">“${c.hint}”</div>
+          <div class="c-goal">${c.goal}</div>
+          <div class="c-foot"><span class="lv">${LV_NAME[c.lv]}</span><span class="t">${state.daysLeft} 局</span></div>
+        </div>
+      </div>
+    </div>`;
+}
+
+let revealing=false;
+function drawFromDeck(){
+  if(revealing)return;
+  if(state.cards.length+state.pending.length>=2){toast('已是两张契约，须先销卡再入新轮回。','bad');return}
+  revealing=true;
+
+  const overlay=$('revealOverlay');
+  overlay.classList.add('show');
+  const target=$('revealCard');
+  const tr=target.getBoundingClientRect();
+  const deckRect=$('deckVisual').getBoundingClientRect();
+  const cx=tr.left+tr.width/2-deckRect.left-deckRect.width/2;
+  const cy=tr.top+tr.height/2-deckRect.top-deckRect.height/2;
+
+  const temp=document.createElement('div');
+  temp.className='draw-card-temp';
+  temp.style.left=deckRect.left+'px';temp.style.top=deckRect.top+'px';
+  document.body.appendChild(temp);
+  $('deckVisual').classList.add('shake');
+  sCard();
+
+  requestAnimationFrame(()=>{
+    temp.style.transform=`translate(${cx}px, ${cy}px) scale(1.7) rotate(4deg)`;
+  });
+
+  /* 本轮回内（已上桌 cards + 本局 pending）不可重复 */
+  const usedTitles=new Set([...state.cards,...state.pending].map(c=>c.title));
+  const available=POOL.filter(c=>!usedTitles.has(c.title));
+  if(!available.length){ revealing=false; temp.remove(); $('deckVisual').classList.remove('shake'); toast('无可抽卡牌','bad'); return; }
+  const card=available[Math.floor(Math.random()*available.length)];
+  state.pending.push({...card,id:Date.now()+Math.random()});
+  state.drawCount++;
+
+  setTimeout(()=>{
+    temp.remove();
+    $('deckVisual').classList.remove('shake');
+    openReveal(state.pending[state.pending.length-1]);
+  },620);
+}
+
+function openReveal(card){
+  $('revealCard').innerHTML=cardHTML(card);
+  $('revealText').innerHTML='';
+
+  const hintHTML = `<div class="card-hint">${card.hint}</div>`;
+  const txt=(state.drawCount>=2)?(GREED_NARRATIVE[card.type]||GREED_TEXT):(NARRATIVE[card.type]||NARRATIVE.奢靡);
+  typewriter($('revealText'), hintHTML + txt, ()=>buildActions(state.drawCount));
+}
+
+/* ===== 打字机：先清掉上一轮未完成的计时器，避免文字互相覆盖 ===== */
+let typeTimers=[];
+function clearTypeTimers(){
+  typeTimers.forEach(t=>clearTimeout(t));
+  typeTimers=[];
+}
+function renderPartial(parts,n){
+  let out='',rem=n;
+  for(const p of parts){
+    if(p.startsWith('<')){out+=p;continue}
+    if(rem<=0)continue;
+    const take=Math.min(rem,p.length);
+    out+=p.slice(0,take);
+    rem-=take;
+  }
+  return out;
+}
+function typewriter(el,html,done){
+  clearTypeTimers();
+  el.innerHTML='';
+  const parts=html.split(/(<[^>]*>)/).filter(s=>s!=='');
+  const total=parts.filter(p=>!p.startsWith('<')).join('').length;
+  if(total===0){el.innerHTML=html;done&&done();return}
+  let n=0;
+  const step=()=>{
+    n++;
+    let out=renderPartial(parts,n);
+    if(n<total)out+='<span class="cursor"></span>';
+    el.innerHTML=out;
+    if(n>=total){done&&done();return}
+    typeTimers.push(setTimeout(step,16));
+  };
+  step();
+}
+
+function buildActions(drawCount){
+  const box=$('revealActions');box.innerHTML='';
+  if(drawCount>=2){
+    const lock=document.createElement('div');
+    lock.className='reveal-lock';lock.style.animationDelay='.12s';
+    lock.innerHTML='两张契约已压案，<b>抽卡已锁定</b> —— 收下即入卡桌，未收则永不结清。';
+    box.appendChild(lock);
+  }
+  const good=document.createElement('button');
+  good.className='btn-choice btn-good';good.style.animationDelay=drawCount>=2?'.28s':'.15s';
+  if(drawCount===1){
+    good.innerHTML=`见好就收，一张就够<small>收下契约，上卡桌</small>`;
+    good.onclick=()=>{revealing=false;goTable()};
+  }else{
+    good.innerHTML=`两张都收下，开打<small>双契在身 · 同时判定</small>`;
+    good.onclick=()=>{revealing=false;goTable()};
+  }
+  box.appendChild(good);
+  if(drawCount===1){
+    const crazy=document.createElement('button');
+    crazy.className='btn-choice btn-crazy';crazy.style.animationDelay='.32s';
+    crazy.innerHTML=`疯狂到底，再来一张！<small>本局挂两张 · 同时判定</small>`;
+    crazy.onclick=()=>{
+      sCard(); revealing=false;
+      $('revealText').innerHTML='';
+      $('revealActions').innerHTML='';
+      drawFromDeck();
+    };
+    box.appendChild(crazy);
+  }
+}
+$('deckVisual').addEventListener('click',drawFromDeck);
+
+function goTable(){
+  $('revealOverlay').classList.remove('show');
+  clearTypeTimers();
+  state.cards=state.cards.concat(state.pending);state.pending=[];
+  state.daysLeft=7;state.turnCount=0;state.bonus=0;state.event=null;state.eventBonus=0;state.whisperCount=0;state.lastWhisperTurn=-99;state.usedEvents=[];
+  $('opNameTable').textContent=state.name;
+  renderEventBar();
+  renderTable();
+  showView('view-table');
+  updateTension();
+}
+
+function renderTable(){
+  const tc=$('tableCards');tc.innerHTML='';
+  state.cards.forEach(c=>{
+    const w=document.createElement('div');
+    w.style.cssText='opacity:0;transform:translateY(40px) scale(.9);animation:rise .5s cubic-bezier(.2,.9,.3,1.1) forwards';
+    w.innerHTML=cardHTML(c);
+    tc.appendChild(w);
+  });
+  const tl=$('taskList');tl.innerHTML='';
+  state.cards.forEach(c=>{
+    const it=document.createElement('div');
+    it.className='task-item';
+    it.innerHTML=`<div class="tt">${c.title}<span class="lv">${LV_NAME[c.lv]}</span></div><div class="tg">${c.goal}</div>`;
+    tl.appendChild(it);
+  });
+  $('daysNum').textContent=state.daysLeft;
+  fitCards();
+  setTimeout(fitCards,60);
+  updatePhase();
+}
+
+function updateDaysColor(){
+  const n=state.daysLeft,el=$('daysNum');
+  el.classList.toggle('w1',n===1);
+  el.classList.toggle('w2',n===2);
+  el.classList.toggle('w3',n===3);
+}
+function updatePhase(){
+  const box=$('phaseBox');
+  box.classList.remove('pulse');
+  if(state.daysLeft<=0){
+    box.innerHTML='<span class="pt">死 契 已 定</span><span id="phaseText"></span>';
+    $('phaseText').innerHTML='七局已尽。'+SETTLE_TEXT;
+  }else if(state.daysLeft<=2){
+    box.classList.add('pulse');
+    box.innerHTML=`<span class="pt">${PHASE.low.pt}</span><span id="phaseText">${PHASE.low.html}</span>`;
+  }else if(state.daysLeft<=6){
+    box.innerHTML=`<span class="pt">${PHASE.high.pt}</span><span id="phaseText">${PHASE.high.html}</span>`;
+  }else{
+    box.innerHTML=`<span class="pt">${PHASE.mid.pt}</span><span id="phaseText">${PHASE.mid.html}</span>`;
+  }
+  updateTension();
+  updateDaysColor();
+}
+
+function showEvent(bodyHTML){
+  $('eventBody').innerHTML=bodyHTML;
+  const ov=$('eventOverlay');
+  ov.classList.remove('show');void ov.offsetWidth;ov.classList.add('show');
+  tataPlay();
+}
+function hideEvent(){ $('eventOverlay').classList.remove('show'); tataStop(); }
+
+function whisperPrompt(){
+  const w=WHISPER_TEXTS[Math.floor(Math.random()*WHISPER_TEXTS.length)];
+  showEvent(`
+    <div class="event-eyebrow">${w.eyebrow}</div>
+    <div class="event-title">${w.title}</div>
+    <div class="event-desc">${w.desc}</div>
+    <div class="event-actions">
+      <button class="event-btn event-accept" style="animation-delay:.15s" id="evAccept">接受挑战</button>
+      <button class="event-btn event-decline" style="animation-delay:.3s" id="evDecline">放弃幻想</button>
+    </div>`);
+  $('evAccept').onclick=()=>{
+    const pool=EVENTS.filter(e=>!state.usedEvents.includes(e.id));
+    const ev=pool.length?pool[Math.floor(Math.random()*pool.length)]:EVENTS[Math.floor(Math.random()*EVENTS.length)];
+    state.usedEvents.push(ev.id);
+    state.event={id:ev.id,accepted:true};
+    eventGoal(ev);
+  };
+  $('evDecline').onclick=()=>{ state.event=null; hideEvent(); toast('放弃幻想，无事发生。','good'); };
+}
+
+const WHISPER_MAX=2;
+const WHISPER_GAP=2;
+
+function canWhisper(){
+  if(state.whisperCount>=WHISPER_MAX) return false;
+  if(state.turnCount-state.lastWhisperTurn<WHISPER_GAP) return false;
+  return true;
+}
+
+function tryWhisper(){
+  if(!canWhisper()) return false;
+  if(Math.random()>=0.6) return false;
+  state.whisperCount++;
+  state.lastWhisperTurn=state.turnCount;
+  whisperPrompt();
+  return true;
+}
+
+function eventGoal(ev){
+  const isWorker = ev.kind==='worker';
+  showEvent(`
+    <div class="event-eyebrow">${ev.eyebrow}</div>
+    <div class="event-title">${ev.title}</div>
+    <div class="event-desc">${ev.desc}</div>
+    <div class="event-goal">${ev.goal}<br><span style="font-size:11.5px;opacity:.82">仅<b>本局</b>有效 · 结算后即作废</span></div>
+    <div class="event-actions">
+      <button class="event-btn event-accept" style="animation-delay:.2s" id="evGo">接下任务，去完成它</button>
+    </div>`);
+  $('evGo').onclick=()=>{
+    hideEvent(); renderEventBar();
+    toast(isWorker ? '献祭已接：打手任务，未完成保底 +50W。仅本局有效。' : '献祭已接：完成目标保底 +50W。仅本局有效。','bad');
+  };
+}
+
+const EVENT_RESULT={
+  worker_done:{
+    eyebrow:'祂 很 失 望',
+    title:'无事发生',
+    desc:'你的打手完成了目标。低语停滞了一瞬，随即像被掐断的电流般沉默下去——就像是什么失望的声音。没有筹码，没有赏赐，只有愈发深重的凝视。',
+    goal:'祂很失望 · 无奖励'
+  },
+  worker_fail:{
+    eyebrow:'祂 很 满 意',
+    title:'打手失手了',
+    desc:'你的打手没能完成目标。那道低语里透出一丝几不可闻的愉悦，仿佛早就料到了这个结果。50万哈夫币如约滑入你的口袋，带着一丝凉意——像是一笔补偿，又像是一句嘲弄。',
+    goal:'保底 +50W · 已入账'
+  },
+  self_done:{
+    eyebrow:'祂 的 回 响',
+    title:'你的疯狂取悦了它……',
+    desc:'你抓住了自己的机会，犹如星尘一般在掌间闪耀。系统的机械音此刻竟带着一丝诡异的温柔。那笔额外的筹码——50万哈夫币，带着微热，妥帖地落入了你的口袋。你的疯狂取悦了它，你的心悸平息了。',
+    goal:'保底 +50W · 已入账'
+  },
+  self_fail:{
+    eyebrow:'祂 的 回 响',
+    title:'一声叹息',
+    desc:'你放弃了那个机会，你听见了一声叹气，但什么都没发生，什么也没留下。额外的赏金如烟雾般消散。系统没有降下惩罚，只是不再看你。你依然要面对那张发烫的契约，和又少了一局的倒计时。',
+    goal:'祂的叹息 · 无奖励'
+  }
+};
+
+function eventSettle(){
+  const ev=EVENTS.find(e=>e.id===state.event.id);
+  const isWorker = ev.kind==='worker';
+  const whoLabel = isWorker ? '你的打手' : '你本人';
+  showEvent(`
+    <div class="event-eyebrow">事 件 结 算</div>
+    <div class="event-title">${ev.title}</div>
+    <div class="event-desc">本局目标是否达成？<br><span style="font-size:12px;color:var(--ink3)">（针对${whoLabel}的事件 · 结算后即作废，不带入下一局）</span></div>
+    <div class="event-goal">${ev.goal}</div>
+    <div class="event-actions">
+      <button class="event-btn event-accept" style="animation-delay:.15s" id="evDone">${isWorker?'打手完成了':'我完成了'}</button>
+      <button class="event-btn event-decline" style="animation-delay:.3s" id="evGive">${isWorker?'打手失手了':'我没完成'}</button>
+    </div>`);
+
+  $('evDone').onclick=()=>{
+    const r = ev.done || (isWorker ? EVENT_RESULT.worker_done : EVENT_RESULT.self_done);
+    if(!isWorker){ state.bonus+=50; state.eventBonus+=50; }
+    showEventResult(r);
+  };
+  $('evGive').onclick=()=>{
+    const r = ev.fail || (isWorker ? EVENT_RESULT.worker_fail : EVENT_RESULT.self_fail);
+    if(isWorker){ state.bonus+=50; state.eventBonus+=50; }
+    showEventResult(r);
+  };
+}
+
+function showEventResult(r){
+  showEvent(`
+    <div class="event-eyebrow">${r.eyebrow}</div>
+    <div class="event-title">${r.title}</div>
+    <div class="event-desc">${r.desc}</div>
+    <div class="event-goal">${r.goal}</div>
+    <div class="event-actions"><button class="event-btn event-accept" style="animation-delay:.2s" id="evOkResult">继续</button></div>`);
+  $('evOkResult').onclick=()=>{
+    state.event=null;
+    hideEvent();
+    renderEventBar();
+    // 事件结算完毕，本局才真正推进（倒计时 -1）
+    advanceTurn();
+  };
+}
+
+function renderEventBar(){
+  const bar=$('eventBar');
+  if(state.event&&state.event.accepted){
+    const ev=EVENTS.find(e=>e.id===state.event.id);
+    if(!ev){bar.style.display='none';return}
+    bar.style.display='block';
+    const tip = ev.kind==='worker'
+      ? '打手任务 · 未完成则保底 <span class="hl-red">+50W</span>'
+      : '个人任务 · 完成则保底 <span class="hl-red">+50W</span>';
+    bar.innerHTML=`<div class="eb-t">特 殊 事 件 进 行 中</div>${ev.title} —— ${tip}<span style="opacity:.75">（仅本局有效）</span>`;
+  }else{ bar.style.display='none'; }
+}
+
+/* ===== 回合推进：唯一入口，保证倒计时只减一次 ===== */
+function advanceTurn(){
+  if(state.cards.length===0)return;
+  if(state.daysLeft<=0){ goSettle('dead'); return; }
+  state.daysLeft--;
+  state.turnCount++;
+  $('daysNum').textContent=state.daysLeft;
+  updatePhase();
+  if(state.daysLeft<=0){ setTimeout(()=>goSettle('dead'),900); return; }
+  tryWhisper();
+}
+
+$('btnNext').addEventListener('click',()=>{
+  if(state.cards.length===0)return;
+  // 弹层开着时忽略，避免重复触发
+  if($('eventOverlay').classList.contains('show')||$('revealOverlay').classList.contains('show'))return;
+  if(state.daysLeft<=0){goSettle('dead');return}
+  if(state.event&&state.event.accepted){ eventSettle(); return; }
+  advanceTurn();
+});
+
+function goComplete(){
+  stopUrgentHb();stopSmoke();
+  clearTypeTimers();
+  // 复原被折卡动画隐藏的原卡，避免下次进入卡桌时不可见
+  document.querySelectorAll('#tableCards .card').forEach(c=>{c.style.visibility='';});
+  const fog=$('bloodFog');if(fog)fog.classList.remove('on');
+  settling=false;
+  sCrack();
+  showView('view-complete');
+}
+$('btnDone').addEventListener('click',()=>{
+  if(state.cards.length===0||settling)return;
+  if(state.event&&state.event.accepted){
+    state.event=null;renderEventBar();
+    toast('提前撤离，未竟的献祭随此局作废。','bad');
+  }
+  splitCardsAndComplete();
+});
+$('btnAgain').addEventListener('click',()=>{
+  ghostOff();addCycle();
+  stopUrgentHb();stopSmoke();
+  clearTypeTimers();
+  const fog=$('bloodFog');if(fog)fog.classList.remove('on');
+  state.cards=[];state.pending=[];state.drawCount=0;state.daysLeft=7;state.turnCount=0;state.bonus=0;state.event=null;state.eventBonus=0;state.whisperCount=0;state.lastWhisperTurn=-99;state.usedEvents=[];
+  settling=false;revealing=false;
+  $('revealOverlay').classList.remove('show');
+  $('eventOverlay').classList.remove('show');
+  $('revealText').innerHTML='';
+  $('revealActions').innerHTML='';
+  $('revealCard').innerHTML='';
+  $('opNameDraw').textContent=state.name;
+  renderEventBar();
+  showView('view-draw');
+});
+$('btnLeave').addEventListener('click',()=>{ goSettle('leave'); });
+
+function goSettle(kind){
+  stopUrgentHb();stopSmoke();
+  clearTypeTimers();
+  settling=false;
+  const fog=$('bloodFog');if(fog)fog.classList.remove('on');
+  sBone();
+  const death=$('settleDeath'),sub=$('settleSub'),txt=$('settleText'),roll=$('settleRoll');
+  if(kind==='leave'){
+    death.textContent='回见！爷撤离了！';
+    death.style.color='#e8c56a';
+    death.style.textShadow='0 0 44px rgba(210,180,80,.7),0 6px 30px rgba(0,0,0,.9)';
+    sub.innerHTML='<br>游戏结束 · 理智尚存';
+    txt.innerHTML=goodbyeText(state.name);
+    roll.innerHTML=`干员 ${state.name} · 共标记 ${state.turnCount} 局 · 特殊事件加成 <b style="color:#e8c56a">+${state.bonus}W</b> 保底`;
+  }else{
+    death.textContent='死契';
+    death.style.color='#7e1410';
+    death.style.textShadow='0 0 44px rgba(180,30,20,.7),0 6px 30px rgba(0,0,0,.9)';
+    sub.innerHTML='七局已尽 · 无可挽回';
+    txt.innerHTML=SETTLE_TEXT;
+    roll.innerHTML=`干员 ${state.name} · 共标记 ${state.turnCount} 局 · 特殊事件加成 <b style="color:#e8b0a0">+${state.bonus}W</b> 保底`;
+  }
+  $('daysNum').textContent=0;
+  renderEventBar();
+  showView('view-settle');
+}
+$('btnRestart').addEventListener('click',()=>{
+  stopUrgentHb();stopSmoke();
+  clearTypeTimers();
+  const fog=$('bloodFog');if(fog)fog.classList.remove('on');
+  state={name:state.name,cards:[],daysLeft:7,pending:[],drawCount:0,turnCount:0,bonus:0,event:null,eventBonus:0,whisperCount:0,lastWhisperTurn:-99,usedEvents:[]};
+  settling=false;
+  $('revealOverlay').classList.remove('show');
+  $('eventOverlay').classList.remove('show');
+  addCycle();setStartOp();
+  showView('view-start');
+});
+
+/* ===== 折卡结算动画（裂开 · 3D翻转坠落 · 震屏 · 粒子碎裂） ===== */
+let settling=false;
+/* 卡桌卡片按可用宽度自适应（防窄屏两张卡互相挤压） */
+function fitCards(){
+  const cards=document.querySelectorAll('#tableCards .card');
+  if(!cards.length)return;
+  const main=document.querySelector('.table-main');
+  const avail=main.clientWidth-32;
+  const n=cards.length;
+  const gap=n>1?34:0;
+  // 分辨率自适应：720P 为最低基准，8K 为最高——宽度按可用空间，高度不超过屏高 42%
+  const maxH=window.innerHeight*.42;
+  const w=Math.min(430,Math.max(200,(avail-gap)/n),Math.max(150,maxH/1.46));
+  cards.forEach(c=>{
+    c.style.width=Math.round(w)+'px';
+    c.style.height=Math.round(w*1.46)+'px';
+  });
+}
+window.addEventListener('resize',()=>{ if($('view-table').classList.contains('show'))fitCards(); });
+function spawnShards(x,y,n){
+  for(let i=0;i<n;i++){
+    const s=document.createElement('i');
+    const size=3+Math.random()*7;
+    const kind=Math.random();
+    const bg=kind<.5?'#ffd970':kind<.8?'#b03a2c':'#e8e0c8';
+    const glow=kind<.5?'rgba(255,217,112,.9)':kind<.8?'rgba(176,58,44,.85)':'rgba(232,224,200,.7)';
+    s.style.cssText=`position:fixed;left:${x}px;top:${y}px;width:${size}px;height:${size}px;z-index:9300;background:${bg};border-radius:${Math.random()<.5?1:50}%;box-shadow:0 0 10px ${glow};pointer-events:none`;
+    document.body.appendChild(s);
+    const ang=Math.random()*Math.PI*2;
+    const dist=40+Math.random()*230;
+    const fall=80+Math.random()*160;
+    s.animate([
+      {transform:'translate(-50%,-50%) scale(1) rotate(0deg)',opacity:1},
+      {transform:`translate(${Math.cos(ang)*dist-14}px, ${Math.sin(ang)*dist*.55+fall}px) scale(${.6+Math.random()*.7}) rotate(${Math.random()*820-410}deg)`,opacity:0}
+    ],{duration:700+Math.random()*650,easing:'cubic-bezier(.12,.7,.3,1)'}).onfinish=()=>s.remove();
+  }
+}
+/* 金色粒子弥散：细碎金尘，慢速慵懒地飘散湮灭 */
+function spawnGoldenBurst(x,y,n){
+  for(let i=0;i<n;i++){
+    const s=document.createElement('i');
+    const size=2.5+Math.random()*4.5;
+    const ang=Math.random()*Math.PI*2;
+    const dist=70+Math.random()*360;
+    const rise=80+Math.random()*300;
+    const c=Math.random();
+    const bg=c<.5?'#ffd970':c<.78?'#ffb340':c<.92?'#ffe9a8':'#ff8b2e';
+    s.style.cssText=`position:fixed;left:${x}px;top:${y}px;width:${size}px;height:${size}px;z-index:9350;background:${bg};border-radius:50%;box-shadow:0 0 ${4+Math.random()*6}px rgba(255,205,90,${.6+Math.random()*.4}),0 0 12px rgba(255,175,65,.2);pointer-events:none`;
+    document.body.appendChild(s);
+    s.animate([
+      {transform:'translate(-50%,-50%) scale(.3)',opacity:0},
+      {transform:'translate(-50%,-50%) scale(1.15)',opacity:1,offset:.07},
+      {transform:`translate(${Math.cos(ang)*dist*.5-22}px, ${Math.sin(ang)*dist*.25-rise*.55}px) scale(${.9+Math.random()*.2})`,opacity:.95,offset:.45},
+      {transform:`translate(${Math.cos(ang)*dist*.8-22}px, ${Math.sin(ang)*dist*.4-rise*.8}px) scale(${.5+Math.random()*.25})`,opacity:.55,offset:.72},
+      {transform:`translate(${Math.cos(ang)*dist-22}px, ${Math.sin(ang)*dist*.5-rise}px) scale(${.05+Math.random()*.12})`,opacity:0}
+    ],{duration:2000+Math.random()*1600,easing:'cubic-bezier(.12,.72,.25,1)'}).onfinish=()=>s.remove();
+  }
+}
+function splitCardsAndComplete(){
+  if(settling)return;settling=true;
+  const cards=[...document.querySelectorAll('#tableCards .card')];
+  if(!cards.length){goComplete();return;}
+  const view=$('view-table');
+  const veil=$('doomVeil');
+  const flash=$('doomFlash');
+  // —— 提权：克隆卡片到 body 顶层（z-index 5000），黑幕（z-index 19）永远压不住卡片 ——
+  const ghosts=[];
+  cards.forEach(card=>{
+    const r=card.getBoundingClientRect();
+    const g=card.cloneNode(true);
+    card.style.visibility='hidden';
+    g.classList.remove('enter');
+    g.classList.add('ghost-card');
+    g.style.left=r.left+'px';g.style.top=r.top+'px';
+    g.style.width=r.width+'px';g.style.height=r.height+'px';
+    g.style.visibility='visible';
+    document.body.appendChild(g);
+    ghosts.push({g,r});
+  });
+  // 目标放大：按当前屏幕主区域自适应（90% 宽 / 88% 高）——双卡按整组包围盒计算
+  const wr=$('tableCards').getBoundingClientRect();
+  const main=document.querySelector('.table-main').getBoundingClientRect();
+  const scale=Math.max(Math.min(main.width*.9/Math.max(wr.width,1),main.height*.88/Math.max(wr.height,1)),1.0);
+  // 阶段一（0–3400ms）：黑幕匀速变黑（卡片提权在上，保持鲜艳）+ 卡片缓缓"浮起"
+  veil.classList.add('on');
+  sBone();sRumble();
+  let cx=0,cy=0;
+  ghosts.forEach(({r})=>{cx+=r.left+r.width/2;cy+=r.top+r.height/2;});
+  cx/=ghosts.length;cy/=ghosts.length;
+  const dx=window.innerWidth/2-cx, dy=window.innerHeight/2-cy;
+  ghosts.forEach(({g})=>{
+    g.animate([
+      {transform:'translate(0,0) scale(1)',filter:'brightness(1)'},
+      {transform:`translate(${dx}px, ${dy}px) scale(${scale}) translateY(-28px)`,filter:'brightness(1.24) saturate(1.18)'}
+    ],{duration:3400,easing:'cubic-bezier(.14,.88,.18,1)',fill:'forwards'});
+  });
+  // 阶段二（3400ms）：裂痕从中心向边缘蔓延，带脆响
+  setTimeout(()=>{
+    ghosts.forEach(({g})=>{
+      g.classList.add('cracking');
+      let svg=g.querySelector('.card-crack');
+      if(!svg){
+        svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+        svg.setAttribute('class','card-crack');
+        svg.setAttribute('viewBox','0 0 100 144');
+        svg.innerHTML='<path d="M50 0 L48 24 L57 38 L44 56 L52 72 L45 95 L50 144"/><path d="M50 56 L76 64 L90 76" opacity=".65"/><path d="M50 56 L25 63 L10 74" opacity=".65"/><path d="M52 72 L60 92" opacity=".5"/>';
+        g.appendChild(svg);
+      }
+    });
+    sCrack();
+  },3400);
+  // 阶段三（4100ms）：碎裂 + 金色粒子弥散 + 花屏扭曲 + 金白闪
+  setTimeout(()=>{
+    flash.classList.add('on');
+    setTimeout(()=>flash.classList.remove('on'),140);
+    view.classList.add('screen-shake','glitchfx');
+    sCrack();sCrack();sBone();
+    ghosts.forEach(({g})=>{
+      g.classList.remove('cracking');
+      const r=g.getBoundingClientRect();
+      g.style.visibility='hidden';
+      const wrap=document.createElement('div');
+      wrap.className='card-split';
+      wrap.style.left=r.left+'px';wrap.style.top=r.top+'px';
+      wrap.style.width=r.width+'px';wrap.style.height=r.height+'px';
+      const L=g.cloneNode(true),R=g.cloneNode(true);
+      [L,R].forEach(el=>{
+        el.classList.remove('enter','ghost-card','cracking');
+        el.style.left='0';el.style.top='0';
+        el.style.width=r.width+'px';el.style.height=r.height+'px';
+        el.style.transform='none';el.style.transition='';
+        el.style.visibility='visible'; // ← 关键：克隆体继承了 hidden，这里必须还原
+        el.style.boxShadow='none';
+      });
+      L.style.clipPath='inset(0 50% 0 0)';L.style.transformOrigin='left center';
+      R.style.clipPath='inset(0 0 0 50%)';R.style.transformOrigin='right center';
+      L.classList.add('fall-left');R.classList.add('fall-right');
+      wrap.appendChild(L);wrap.appendChild(R);
+      document.body.appendChild(wrap);
+      requestAnimationFrame(()=>{L.classList.add('go','burst');R.classList.add('go','burst');});
+      spawnShards(r.left+r.width/2,r.top+r.height/2,40);
+      spawnGoldenBurst(r.left+r.width/2,r.top+r.height/2,200);
+      spawnGoldenBurst(r.left+r.width*.28,r.top+r.height*.3,90);
+      spawnGoldenBurst(r.left+r.width*.72,r.top+r.height*.3,90);
+      setTimeout(()=>wrap.remove(),900);
+    });
+    setTimeout(()=>view.classList.remove('screen-shake','glitchfx'),750);
+    setTimeout(()=>{view.classList.add('screen-shake');setTimeout(()=>view.classList.remove('screen-shake'),700);},1050);
+  },4100);
+  // 阶段四（4700ms）：金色余烬下，黑屏凝滞
+  setTimeout(()=>{ veil.classList.add('deep'); },4700);
+  // 阶段五（5600ms）：黑幕淡出 → 轮回页面淡入
+  setTimeout(()=>{
+    view.classList.remove('doom','tremble','glitchfx','screen-shake');
+    veil.classList.remove('on','deep');
+    ghosts.forEach(o=>o.g.remove());
+    goComplete();
+  },5600);
+}
+
+/* ===== 最后两局压迫特效：血雾 / 黑烟 / 急促心跳 ===== */
+let smokeTimer=null,hbTimer=null;
+function startSmoke(){
+  if(smokeTimer)return;
+  smokeTimer=setInterval(()=>{
+    document.querySelectorAll('#tableCards .card').forEach(card=>{
+      let host=card.querySelector('.smoke-host');
+      if(!host){host=document.createElement('div');host.className='smoke-host';card.appendChild(host);}
+      if(host.children.length>5)return;
+      const i=document.createElement('i');
+      const edge=Math.floor(Math.random()*4);
+      if(edge===0){i.style.left=(8+Math.random()*84)+'%';i.style.top='6%';}
+      else if(edge===1){i.style.left=(8+Math.random()*84)+'%';i.style.top='94%';}
+      else if(edge===2){i.style.left='4%';i.style.top=(10+Math.random()*80)+'%';}
+      else{i.style.left='96%';i.style.top=(10+Math.random()*80)+'%';}
+      host.appendChild(i);
+      i.addEventListener('animationend',()=>i.remove());
+    });
+  },380);
+}
+function stopSmoke(){
+  if(smokeTimer){clearInterval(smokeTimer);smokeTimer=null;}
+  document.querySelectorAll('.smoke-host').forEach(h=>h.remove());
+}
+function sHeartbeatUrgent(scale,n){
+  scale=scale===undefined?1:scale;n=n||3;
+  try{const c=ac(),t=c.currentTime;
+    const beat=(off,fq,du,vol)=>{const o=c.createOscillator(),g=c.createGain();o.type='sine';o.frequency.value=fq;g.gain.setValueAtTime(0,t+off);g.gain.linearRampToValueAtTime(vol*scale,t+off+.012);g.gain.exponentialRampToValueAtTime(.0001,t+off+du);o.connect(g).connect(c.destination);o.start(t+off);o.stop(t+off+du+.05)};
+    beat(0,60,.13,.95);
+    if(n>=2)beat(.28,48,.1,.72);
+    if(n>=3)beat(.56,60,.12,.9);
+    if(n>=4)beat(.84,48,.1,.68);
+  }catch(e){}
+}
+function startUrgentHb(){
+  if(hbTimer)return;
+  const base=state.daysLeft<=1?0.84:0.7;
+  sHeartbeatUrgent(base,3);
+  hbTimer=setTimeout(stopUrgentHb,1200);
+}
+function stopUrgentHb(){if(hbTimer){clearTimeout(hbTimer);hbTimer=null;}}
+function updateTension(){
+  const inTable=$('view-table').classList.contains('show');
+  const tense=inTable&&state.daysLeft>0&&state.daysLeft<=2;
+  $('bloodFog').classList.toggle('on',tense);
+  if(tense){startSmoke();startUrgentHb();}
+  else{stopSmoke();stopUrgentHb();}
+}
+
+/* ===== 俺寻思：川渝碎碎念 ===== */
+const RUMI_LINES=[
+  '妈耶，这局啷个整嘛！',
+  '锤子哦，老子枪管子都莫得！',
+  '日白得很，对面怕是开了挂哦！',
+  '安逸惨了，这把稳当！',
+  '莫慌莫慌，先嗦口烟再说。',
+  '脑壳飞痛，这卡牌怕不是要谋害朕！',
+  '遭求了，这波怕是要遭团灭！',
+  '老子信了你滴邪，啷个又莫得子弹咯！',
+  '慌啥子嘛，让子弹再飞一哈儿。',
+  '这日子没法过了，天天跟哈夫币扯皮！',
+  '你个龟儿**，又想整我噻？',
+  '巴适！这枪手感简直不摆了！',
+  '莫得办法，硬着头皮也要上！',
+  '哎哟喂，手都在抖，稳到稳到！',
+  '打锤子打，先恰根烟冷静一哈。',
+  '这波操作，我啷个说呢……玄乎！',
+  '来嘛来嘛，刀山火海都闯过！',
+  '啥子东西哦，卡牌还会冒烟？见鬼咯！',
+  '瓜娃子才莫得梦想，老子要恰票大的！',
+  '铲铲！这运气怕是遭狗啃咯！',
+  '慌得批爆，但又莫得法子！',
+  '我滴个乖乖，这哈夫币怕是张了翅膀！',
+  '天老爷，啷个又是威龙！',
+  '莫得事莫得事，稳住我们能赢！',
+  '这波我要是浪了，我就是个哈儿！',
+  '安逸！这波捡漏捡安逸咯！',
+  '哎哟，这地图啷个越看越虚火！',
+  '整起整起，莫要拉稀摆带！',
+  '锤子个保底，老子要的是一枪入魂！',
+  '这卡牌硬是比我老汉儿还凶！',
+  '莫得搞头咯，这局怕是白打！',
+  '龟儿运气，怕是把老子当憨包耍！',
+  '舒服惨了，这波直接起飞！',
+  '我呸！这也能被偷？宝器！',
+  '雄起！莫要虚，干就完了！',
+  '脑壳一嗡，这波又遭洗白咯！',
+  '神戳戳的，这**又在发啥子神经！',
+  '来嘛来嘛，让老子看看你有好凶！',
+  '莫得钱钱，心头慌慌，好嘛，先打两把！',
+  '球莫名堂，这局啷个又遇高手咯！',
+  '稳到点嘛，莫要梭边边！',
+  '哈起跟斗，这波怕是要整出心脏病！',
+  '安逸个铲铲，这波遭反杀咯！',
+  '你啷个不早说！马后炮！',
+  '老子手都扣酸咯，还不给点好牌！',
+  '稀脏！这地图咋个啷个阴人！',
+  '冲嘞！莽起！管他三七二十一！',
+  '莫看我岁数大，枪法稳得很！',
+  '这盘要是赢了，老子请吃火锅！',
+  '瓜起做啥子，快来帮老子压枪！'
+];
+const RUMI_ROAR='再点老子就喊龟总把打手的网线踹咯！点的我脑壳疼！';
+let rumiClicks=[];
+let rumiLastClick=0;
+let rumiRaging=false;
+let rumiRoarEl=null;
+let rumiRageTimer=null;
+function roarBubble(){
+  document.querySelectorAll('.rumi-bubble').forEach(b=>b.remove());
+  if(rumiRoarEl){
+    rumiRoarEl.style.animation='none';
+    void rumiRoarEl.offsetWidth;
+    rumiRoarEl.style.animation='';
+  }else{
+    const btn=$('btnRumi');
+    const r=btn.getBoundingClientRect();
+    const b=document.createElement('div');
+    b.className='rumi-roar';
+    const st=document.createElement('span');
+    st.className='roar-text';
+    st.textContent=RUMI_ROAR;
+    b.appendChild(st);
+    b.style.left=(r.left+r.width/2)+'px';
+    b.style.top=(r.top-10)+'px';
+    document.body.appendChild(b);
+    requestAnimationFrame(()=>b.classList.add('show'));
+    rumiRoarEl=b;
+  }
+  rumiRaging=true;
+  if(rumiRageTimer)clearTimeout(rumiRageTimer);
+  rumiRageTimer=setTimeout(()=>{
+    rumiRaging=false;
+    rumiRageTimer=null;
+    if(rumiRoarEl){
+      const el=rumiRoarEl;
+      rumiRoarEl=null;
+      el.classList.remove('show');
+      setTimeout(()=>el.remove(),300);
+    }
+  },2400);
+}
+function rumiBubble(){
+  const now=Date.now();
+  if(rumiRaging){
+    rumiClicks=[];
+    roarBubble();
+    return;
+  }
+  if(now-rumiLastClick>500){rumiClicks=[];}
+  rumiLastClick=now;
+  rumiClicks.push(now);
+  if(rumiClicks.length>=10){
+    rumiClicks=[];
+    roarBubble();
+    return;
+  }
+  document.querySelectorAll('.rumi-bubble').forEach(b=>b.remove());
+  const line=RUMI_LINES[Math.floor(Math.random()*RUMI_LINES.length)];
+  const btn=$('btnRumi');
+  const r=btn.getBoundingClientRect();
+  const b=document.createElement('div');
+  b.className='rumi-bubble';
+  b.textContent=line;
+  b.style.left=(r.left+r.width/2)+'px';
+  b.style.top=(r.top-6)+'px';
+  document.body.appendChild(b);
+  requestAnimationFrame(()=>b.classList.add('show'));
+  setTimeout(()=>{b.classList.remove('show');setTimeout(()=>b.remove(),300);},2800);
+}
+$('btnRumi').addEventListener('click',rumiBubble);
+
+/* ===== 再来一局：恐怖谷幽灵字（跟随鼠标颤抖） ===== */
+let ghostInt=null,ghostX=0,ghostY=0;
+function ghostMove(e){ghostX=e.clientX;ghostY=e.clientY;}
+function ghostOn(e){
+  ghostX=e.clientX;ghostY=e.clientY;
+  if(ghostInt)return;
+  document.addEventListener('mousemove',ghostMove);
+  const spawn=()=>{
+    const g=document.createElement('i');
+    g.className='ghost-text';
+    g.textContent='再来一局';
+    g.style.left=(ghostX+(Math.random()*140-70))+'px';
+    g.style.top=(ghostY+(Math.random()*100-50))+'px';
+    document.body.appendChild(g);
+    setTimeout(()=>g.remove(),1000);
+  };
+  spawn();
+  ghostInt=setInterval(spawn,140);
+}
+function ghostOff(){
+  if(ghostInt){clearInterval(ghostInt);ghostInt=null;}
+  document.removeEventListener('mousemove',ghostMove);
+}
+$('btnAgain').addEventListener('mouseenter',ghostOn);
+$('btnAgain').addEventListener('mouseleave',ghostOff);
+
+/* ===== 周目记忆：第二周目起，开始界面的低语 ===== */
+function getCycles(){try{return parseInt(localStorage.getItem('sultan_cycles')||'0',10)||0}catch(e){return 0}}
+function addCycle(){try{localStorage.setItem('sultan_cycles',String(getCycles()+1))}catch(e){}}
+const CYCLE_LINES=[
+  '又见到你了，它对此似乎并不稀奇。甚至你能听到，它从鼻腔里哼了一声嗤笑出来。',
+  '第三回了。它甚至懒得再装出欢迎的样子，只是慢悠悠地打量你的脖颈，像在打量一块熟肉。',
+  '你的气味它已经记住了。轮回对它而言不过是翻过一页纸——而你，是那页纸上反复涂改、始终抹不掉的墨迹。',
+  '它数过你的呼吸。每一回你踏入这里，它都在心里悄悄记下一笔，等着看你这把烂骨头能撑到第几页。'
+];
+function creepLine(c){return CYCLE_LINES[Math.min(Math.max(c,1)-1,CYCLE_LINES.length-1)];}
+function setStartOp(){
+  const el=$('startOp');
+  const c=getCycles();
+  if(c>=1){
+    el.textContent=creepLine(c);
+    el.classList.add('creep');
+  }else{
+    el.textContent=`干员 ${state.name}，契约在等你。`;
+    el.classList.remove('creep');
+  }
+}
+
+let bannerTimer;
+function toast(msg,type){
+  const b=$('banner');if(!b)return;
+  b.textContent=msg;b.className='banner show'+(type?' '+type:'');
+  clearTimeout(bannerTimer);bannerTimer=setTimeout(()=>b.classList.remove('show'),2600);
+}
+
+(function(){
+  const old=loadName();
+  if(old){
+    state.name=old;
+    setStartOp();
+  }
+  showView('view-start');
+})();
+</script>
+
+<!-- ============ 独立鼠标金色粒子特效 ============ -->
+<script>
+(function() {
+  const container = document.createElement('div');
+  container.style.position = 'fixed';
+  container.style.inset = '0';
+  container.style.pointerEvents = 'none';
+  container.style.zIndex = '99999';
+  document.body.appendChild(container);
+
+  let lastMoveTime = 0;
+
+  document.addEventListener('pointermove', (e) => {
+    const now = performance.now();
+    if (now - lastMoveTime < 25) return;
+    lastMoveTime = now;
+
+    const p = document.createElement('div');
+    const size = Math.random() * 4 + 2;
+
+    p.style.position = 'absolute';
+    p.style.width = size + 'px';
+    p.style.height = size + 'px';
+    p.style.borderRadius = '50%';
+    p.style.background = 'radial-gradient(circle, #fff5cf 0%, #ffd970 40%, rgba(255,214,110,0) 80%)';
+    p.style.boxShadow = '0 0 8px rgba(255,210,120,0.8)';
+    p.style.left = (e.clientX + (Math.random() - 0.5) * 10) + 'px';
+    p.style.top = (e.clientY + (Math.random() - 0.5) * 10) + 'px';
+
+    container.appendChild(p);
+
+    p.animate([
+      { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+      { transform: `translate(${(Math.random()-0.5)*40}px, ${-20-Math.random()*40}px) scale(0.2)`, opacity: 0 }
+    ], {
+      duration: 600 + Math.random() * 400,
+      easing: 'cubic-bezier(0.2, 0.8, 0.3, 1)'
+    }).onfinish = () => p.remove();
+  }, { passive: true });
+
+  document.addEventListener('pointerdown', (e) => {
+    if (e.button !== 0 && e.button !== undefined) return;
+
+    const count = 12;
+    for (let i = 0; i < count; i++) {
+      const p = document.createElement('div');
+      const size = Math.random() * 3 + 2;
+
+      p.style.position = 'absolute';
+      p.style.width = size + 'px';
+      p.style.height = size + 'px';
+      p.style.borderRadius = '50%';
+      p.style.background = '#ffd970';
+      p.style.boxShadow = '0 0 10px #ffd970';
+      p.style.left = (e.clientX - size/2) + 'px';
+      p.style.top = (e.clientY - size/2) + 'px';
+
+      container.appendChild(p);
+
+      const angle = (Math.PI * 2 * i) / count + Math.random() * 0.5;
+      const dist = 20 + Math.random() * 40;
+
+      p.animate([
+        { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+        { transform: `translate(${Math.cos(angle)*dist}px, ${Math.sin(angle)*dist}px) scale(0)`, opacity: 0 }
+      ], {
+        duration: 500 + Math.random() * 300,
+        easing: 'cubic-bezier(0.1, 0.8, 0.3, 1)'
+      }).onfinish = () => p.remove();
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
