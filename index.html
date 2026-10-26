@@ -7,9 +7,9 @@
 <link rel="preload" as="image" href="pic/back.webp">
 <title>王座的游戏 · 起源电竞</title>
 <style>
-@font-face{font-family:'HY SunShangXiang';src:url('font/汉仪孙尚香简.ttf') format('truetype');font-weight:400 900;font-display:swap}
-@font-face{font-family:'HY MingYue';src:url('font/汉仪明月 85W.ttf') format('truetype');font-weight:400 900;font-display:swap}
-@font-face{font-family:'HY QiHei';src:url('font/汉仪旗黑 75简.ttf') format('truetype');font-weight:400 900;font-display:swap}
+@font-face{font-family:'HY SunShangXiang';src:url('font/sunshiang.ttf') format('truetype');font-weight:400 900;font-display:swap}
+@font-face{font-family:'HY MingYue';src:url('font/mingyue.ttf') format('truetype');font-weight:400 900;font-display:swap}
+@font-face{font-family:'HY QiHei';src:url('font/qihei.ttf') format('truetype');font-weight:400 900;font-display:swap}
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --gold:#c9a45c;--gold-hi:#f0d9a0;--gold-dim:rgba(201,164,92,.4);--gold-line:rgba(201,164,92,.55);
@@ -33,7 +33,7 @@ body::after{content:'';position:fixed;inset:0;z-index:3;pointer-events:none;back
 @keyframes viewIn{from{opacity:0;transform:scale(1.02)}to{opacity:1;transform:none}}
 
 /* ============ 开始页 ============ */
-#view-start{background:url('pic/back.webp') center/cover no-repeat;align-items:center;justify-content:center;text-align:center}
+#view-start{background:linear-gradient(rgba(10,7,5,.55),rgba(10,7,5,.55)),url('pic/back.webp') center/cover no-repeat;align-items:center;justify-content:center;text-align:center}
 #view-start::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,transparent 30%,rgba(0,0,0,.78) 100%);z-index:1}
 #view-start>*{position:relative;z-index:2}
 .start-title{
@@ -85,7 +85,7 @@ body::after{content:'';position:fixed;inset:0;z-index:3;pointer-events:none;back
 .start-op{margin-top:16px;font-size:12.5px;letter-spacing:.12em;color:var(--ink3)}
 
 /* ============ 登记页 ============ */
-#view-register{background:url('pic/back.webp') center/cover no-repeat;align-items:center;justify-content:center}
+#view-register{background:linear-gradient(rgba(10,7,5,.55),rgba(10,7,5,.55)),url('pic/back.webp') center/cover no-repeat;align-items:center;justify-content:center}
 #view-register::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,transparent 25%,rgba(0,0,0,.8) 100%);z-index:1}
 #view-register>*{position:relative;z-index:2}
 .paper{
@@ -114,7 +114,7 @@ body::after{content:'';position:fixed;inset:0;z-index:3;pointer-events:none;back
 .paper-btn:active{transform:none}
 
 /* ============ 抽卡页 ============ */
-#view-draw{background:url('pic/back.webp') center/cover no-repeat}
+#view-draw{background:linear-gradient(rgba(10,7,5,.55),rgba(10,7,5,.55)),url('pic/back.webp') center/cover no-repeat}
 #view-draw::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,transparent 20%,rgba(0,0,0,.82) 100%);z-index:1}
 #view-draw>*{position:relative;z-index:2}
 .draw-top{display:flex;align-items:center;padding:22px 34px;gap:16px}
@@ -230,7 +230,7 @@ body::after{content:'';position:fixed;inset:0;z-index:3;pointer-events:none;back
 .reveal-lock b{color:#e8b0a0;font-weight:700}
 
 /* ============ 卡桌页 ============ */
-#view-table{background:url('pic/back2.webp') center/cover no-repeat}
+#view-table{background:linear-gradient(rgba(10,7,5,.55),rgba(10,7,5,.55)),url('pic/back2.webp') center/cover no-repeat}
 #view-table::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 42%,transparent 28%,rgba(0,0,0,.72) 100%);z-index:1;pointer-events:none}
 #view-table>*{position:relative;z-index:2}
 .table-top{display:flex;align-items:center;flex-wrap:wrap;padding:20px 34px;gap:14px}
@@ -327,7 +327,7 @@ body::after{content:'';position:fixed;inset:0;z-index:3;pointer-events:none;back
 .turn-btn .small,.done-btn .small{display:block;font-weight:400;font-size:10.5px;letter-spacing:.14em;color:#d9c39a;margin-top:4px}
 .done-btn .small{color:#e8b0a0}
 /* 完成页 */
-#view-complete{background:url('pic/back.webp') center/cover no-repeat;align-items:center;justify-content:center}
+#view-complete{background:linear-gradient(rgba(10,7,5,.25),rgba(10,7,5,.25)),url('pic/back.webp') center/cover no-repeat;align-items:center;justify-content:center}
 #view-complete::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(0,0,0,.25),transparent 55%),rgba(0,0,0,.55);z-index:1}
 #view-complete>*{position:relative;z-index:2}
 .complete-inner{max-width:820px;width:100%;padding:60px 50px;text-align:center;display:flex;flex-direction:column;align-items:center}
@@ -641,8 +641,8 @@ body::after{content:'';position:fixed;inset:0;z-index:3;pointer-events:none;back
 .start-op.creep{color:#d89a8a;letter-spacing:.08em;line-height:2;max-width:min(720px,60vw);text-shadow:0 0 14px rgba(160,40,25,.4)}
 </style>
 </head>
-
 <body>
+<canvas id="glBg" style="position:fixed;inset:0;z-index:0;pointer-events:none"></canvas>
 
 <!-- ===== 开始页 ===== -->
 <div class="view" id="view-start">
@@ -1872,74 +1872,270 @@ function toast(msg,type){
 <!-- ============ 独立鼠标金色粒子特效 ============ -->
 <script>
 (function() {
-  const container = document.createElement('div');
-  container.style.position = 'fixed';
-  container.style.inset = '0';
-  container.style.pointerEvents = 'none';
-  container.style.zIndex = '99999';
-  document.body.appendChild(container);
+  const canvas = document.createElement('canvas');
+  canvas.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:99998';
+  document.body.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+  if(!ctx) return;
 
-  let lastMoveTime = 0;
+  let W, H;
+  function resize(){
+    W = canvas.width = innerWidth;
+    H = canvas.height = innerHeight;
+  }
+  addEventListener('resize', resize); resize();
+
+  // 鼠标轨迹点
+  const trail = [];
+  let lastSpawn = 0;
+  let prevX = -1, prevY = -1;
+
+  // 粒子池（细、多、密 —— 星辰碎屑）
+  const parts = [];
+  const MAX = 420;
+
+  function spawnP(x, y, vx, vy){
+    if(parts.length >= MAX) parts.shift();
+    parts.push({
+      x, y,
+      vx, vy,
+      size: 0.1 + Math.random() * 0.4,       // 极细 0.1-0.5
+      life: 0.6 + Math.random() * 0.5,
+      t: 0,
+      hist: []                                // 自身轨迹（渐隐光点）
+    });
+  }
 
   document.addEventListener('pointermove', (e) => {
     const now = performance.now();
-    if (now - lastMoveTime < 25) return;
-    lastMoveTime = now;
+    const x = e.clientX, y = e.clientY;
 
-    const p = document.createElement('div');
-    const size = Math.random() * 4 + 2;
+    trail.push({x, y, t: now});
+    if(trail.length > 30) trail.shift();
 
-    p.style.position = 'absolute';
-    p.style.width = size + 'px';
-    p.style.height = size + 'px';
-    p.style.borderRadius = '50%';
-    p.style.background = 'radial-gradient(circle, #fff5cf 0%, #ffd970 40%, rgba(255,214,110,0) 80%)';
-    p.style.boxShadow = '0 0 8px rgba(255,210,120,0.8)';
-    p.style.left = (e.clientX + (Math.random() - 0.5) * 10) + 'px';
-    p.style.top = (e.clientY + (Math.random() - 0.5) * 10) + 'px';
+    let vx = 0, vy = 0;
+    if(prevX >= 0){
+      const dx = x - prevX, dy = y - prevY;
+      const d = Math.hypot(dx, dy) || 1;
+      vx = dx / d; vy = dy / d;
+    }
+    prevX = x; prevY = y;
 
-    container.appendChild(p);
-
-    p.animate([
-      { transform: 'translate(0, 0) scale(1)', opacity: 1 },
-      { transform: `translate(${(Math.random()-0.5)*40}px, ${-20-Math.random()*40}px) scale(0.2)`, opacity: 0 }
-    ], {
-      duration: 600 + Math.random() * 400,
-      easing: 'cubic-bezier(0.2, 0.8, 0.3, 1)'
-    }).onfinish = () => p.remove();
+    // 密撒、贴近鼠标（反方向偏移小 → 低延迟）
+    if(now - lastSpawn > 30){
+      lastSpawn = now;
+      const n = 4;
+      for(let i = 0; i < n; i++){
+        const back = Math.random() * 0.4;
+        spawnP(
+          x - vx * back * 12 + (Math.random() - .5) * 4,
+          y - vy * back * 12 + (Math.random() - .5) * 4,
+          vx, vy
+        );
+      }
+    }
   }, { passive: true });
 
+  // 点击：爆一圈金色星尘
   document.addEventListener('pointerdown', (e) => {
-    if (e.button !== 0 && e.button !== undefined) return;
-
-    const count = 12;
-    for (let i = 0; i < count; i++) {
-      const p = document.createElement('div');
-      const size = Math.random() * 3 + 2;
-
-      p.style.position = 'absolute';
-      p.style.width = size + 'px';
-      p.style.height = size + 'px';
-      p.style.borderRadius = '50%';
-      p.style.background = '#ffd970';
-      p.style.boxShadow = '0 0 10px #ffd970';
-      p.style.left = (e.clientX - size/2) + 'px';
-      p.style.top = (e.clientY - size/2) + 'px';
-
-      container.appendChild(p);
-
-      const angle = (Math.PI * 2 * i) / count + Math.random() * 0.5;
-      const dist = 20 + Math.random() * 40;
-
-      p.animate([
-        { transform: 'translate(0, 0) scale(1)', opacity: 1 },
-        { transform: `translate(${Math.cos(angle)*dist}px, ${Math.sin(angle)*dist}px) scale(0)`, opacity: 0 }
-      ], {
-        duration: 500 + Math.random() * 300,
-        easing: 'cubic-bezier(0.1, 0.8, 0.3, 1)'
-      }).onfinish = () => p.remove();
+    if(e.button !== 0 && e.button !== undefined) return;
+    for(let i = 0; i < 12; i++){
+      const a = (Math.PI * 2 * i) / 12 + Math.random() * .5;
+      const sp = .5 + Math.random() * 1.0;
+      parts.push({
+        x: e.clientX, y: e.clientY,
+        vx: Math.cos(a) * sp, vy: Math.sin(a) * sp,
+        size: 0.6 + Math.random() * 1.0,
+        life: 1.0 + Math.random() * .6, t: 0,
+        hist: []
+      });
     }
   });
+
+  let last = performance.now();
+  function frame(){
+    requestAnimationFrame(frame);
+    const now = performance.now();
+    const dt = Math.min((now - last) / 1000, .05);
+    last = now;
+
+    // 完全透明背景，绝不污染页面
+    ctx.clearRect(0, 0, W, H);
+    ctx.globalCompositeOperation = 'lighter';
+
+    for(let i = parts.length - 1; i >= 0; i--){
+      const p = parts[i];
+      p.t += dt;
+      const k = p.t / p.life;
+      if(k >= 1){ parts.splice(i, 1); continue; }
+
+      // 记录历史位置（最多 6 个 → 星辰拖尾）
+      p.hist.push({x: p.x, y: p.y});
+      if(p.hist.length > 6) p.hist.shift();
+
+      // 缓慢跟随鼠标方向 + 极轻微上浮
+      p.x += p.vx * (1 - k * .7) * dt * 50;
+      p.y += p.vy * (1 - k * .7) * dt * 50 - dt * 2;
+
+      // 绘制渐隐光点链（从旧到新：小→大、暗→亮）
+      const hl = p.hist.length;
+      for(let h = 0; h < hl; h++){
+        const hp = p.hist[h];
+        const f = (h + 1) / hl;                // 0~1，越新越亮
+        const fade = (1 - k) * f;
+        const r = p.size * (0.35 + f * 0.8);
+        ctx.beginPath();
+        ctx.arc(hp.x, hp.y, r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 220, 130, ${fade * .9})`;
+        ctx.fill();
+      }
+
+      // 头部亮点（发光）
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size * 1.2, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255, 232, 170, ${(1 - k) * .95})`;
+      ctx.shadowColor = 'rgba(255, 205, 95, .85)';
+      ctx.shadowBlur = 6;
+      ctx.fill();
+    }
+    ctx.shadowBlur = 0;
+    ctx.globalCompositeOperation = 'source-over';
+  }
+  frame();
+})();
+</script>
+
+<script>
+// === WebGL 金色扭曲背景 ===
+(function(){
+  const canvas = document.getElementById('glBg');
+  const gl = canvas.getContext('webgl');
+  if(!gl) return;
+
+  let mouse = {x:.5, y:.5};
+  let prevMouse = {x:.5, y:.5};
+  let ripple = 0; // 当前波纹强度
+  let t = 0;
+
+  const vs = `
+    attribute vec2 aPos;
+    varying vec2 vUv;
+    void main(){ vUv = aPos*.5+.5; gl_Position = vec4(aPos,0.,1.); }`;
+
+  const fs = `
+    precision mediump float;
+    varying vec2 vUv;
+    uniform vec2 uMouse;
+    uniform vec2 uPrevMouse;
+    uniform float uRipple;
+    uniform float uTime;
+    uniform float uGoldBoost;
+
+    void main(){
+      vec2 uv = vUv;
+
+      // 基础流动波纹 —— 暗金色
+      float w1 = sin(uv.y*6. + uTime*.3 + sin(uv.x*3.+uTime*.2));
+      float w2 = sin(uv.x*4. - uTime*.15 + cos(uv.y*5.));
+      float flow = w1*.5 + w2*.5;
+
+      // 鼠标位移距离 = 波纹强度
+      vec2 diff = uMouse - uPrevMouse;
+      float dist = length(uv - uMouse);
+
+      // 鼠标推开扭曲：快速衰减（0.2s），强度大幅增强
+      float push = exp(-dist*3.5) * uRipple;
+      uv.x += diff.x * push * 8.0;
+      uv.y += diff.y * push * 8.0;
+
+      // 涟漪圆环
+      float ring = sin(dist*22. - uTime*8.) * exp(-dist*4.5) * uRipple;
+      uv.y += ring * 0.06;
+      uv.x += cos(dist*22. - uTime*8.) * exp(-dist*4.5) * uRipple * 0.03;
+
+      // 颜色：暗金基调，亮金高光（更浓）
+      vec3 darkGold = vec3(0.09, 0.06, 0.02);
+      vec3 midGold  = vec3(0.42, 0.32, 0.10);
+      vec3 brightGold = vec3(1.0, 0.85, 0.42);
+
+      float glow = flow*.5+.5;
+      vec3 col = mix(darkGold, midGold, glow*.75);
+
+      // 鼠标附近金色光晕（更强）
+      float mouseGlow = exp(-dist*2.5) * uRipple;
+      col = mix(col, brightGold, mouseGlow*.55 + uGoldBoost*.2);
+
+      // 极细竖纹（金色更明显）
+      float stripes = sin(uv.x*80.)*.5+.5;
+      col += vec3(0.07,0.05,0.015) * stripes * .45;
+
+      // 整体叠加 uGoldBoost（结算页更亮）
+      col += vec3(0.16, 0.11, 0.03) * uGoldBoost;
+
+      gl_FragColor = vec4(col, 1.0);
+    }`;
+
+  function sh(type, src){
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src); gl.compileShader(s);
+    if(!gl.getShaderParameter(s, gl.COMPILE_STATUS)) console.error(gl.getShaderInfoLog(s));
+    return s;
+  }
+
+  const prog = gl.createProgram();
+  gl.attachShader(prog, sh(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog); gl.useProgram(prog);
+
+  const aPos = gl.getAttribLocation(prog, 'aPos');
+  const uMouse = gl.getUniformLocation(prog, 'uMouse');
+  const uPrevMouse = gl.getUniformLocation(prog, 'uPrevMouse');
+  const uRipple = gl.getUniformLocation(prog, 'uRipple');
+  const uTime = gl.getUniformLocation(prog, 'uTime');
+  const uGoldBoost = gl.getUniformLocation(prog, 'uGoldBoost');
+
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1, 1,-1,1,1,-1,1]), gl.STATIC_DRAW);
+  gl.enableVertexAttribArray(aPos);
+  gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+  function resize(){
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+    gl.viewport(0, 0, canvas.width, canvas.height);
+  }
+  addEventListener('resize', resize); resize();
+
+  addEventListener('mousemove', e=>{
+    prevMouse.x = mouse.x;
+    prevMouse.y = mouse.y;
+    mouse.x = e.clientX / canvas.width;
+    mouse.y = 1. - e.clientY / canvas.height;
+    // 鼠标动一下就激发波纹（强度更大）
+    ripple = Math.min(1.2, ripple + (Math.abs(mouse.x-prevMouse.x) + Math.abs(mouse.y-prevMouse.y)) * 6);
+  });
+
+  // 检测是否在结算页
+  function goldBoost(){
+    const c = document.getElementById('view-complete');
+    return (c && c.classList.contains('show')) ? 1.0 : 0.0;
+  }
+
+  function render(){
+    t += 0.016;
+    // 波纹快速衰减（0.2秒 ≈ 12帧）
+    ripple *= 0.75;
+
+    gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.uniform2f(uPrevMouse, prevMouse.x, prevMouse.y);
+    gl.uniform1f(uRipple, ripple);
+    gl.uniform1f(uTime, t);
+    gl.uniform1f(uGoldBoost, goldBoost());
+    gl.drawArrays(gl.TRIANGLES, 0, 6);
+    requestAnimationFrame(render);
+  }
+  render();
 })();
 </script>
 
