@@ -656,6 +656,15 @@ body::after{content:'';position:fixed;inset:0;z-index:3;pointer-events:none;back
 
 /* 第二周目开场诡语 */
 .start-op.creep{color:#d89a8a;letter-spacing:.08em;line-height:2;max-width:min(720px,60vw);text-shadow:0 0 14px rgba(160,40,25,.4)}
+
+/* ============ 新手引导（标注教程） ============ */
+#guideOverlay{position:fixed;inset:0;z-index:999995;background:rgba(0,0,0,.62);cursor:pointer;display:none}
+.guide-hl{position:fixed;border:1.5px solid rgba(255,205,110,.95);border-radius:10px;background:rgba(255,215,140,.05);pointer-events:none;animation:guidePulse 1.2s ease-in-out infinite}
+@keyframes guidePulse{0%,100%{box-shadow:0 0 16px rgba(255,190,90,.35),inset 0 0 16px rgba(255,190,90,.12)}50%{box-shadow:0 0 26px rgba(255,190,90,.6),inset 0 0 26px rgba(255,190,90,.25)}}
+.guide-bubble{position:fixed;min-width:200px;max-width:300px;background:linear-gradient(160deg,#2a1e10,#160e06);border:1px solid rgba(255,205,110,.55);border-radius:10px;padding:14px 16px;box-shadow:0 8px 28px rgba(0,0,0,.7),0 0 14px rgba(255,190,90,.12);color:#f2e0c0;transform:translateX(-50%);pointer-events:none}
+.guide-bubble .g-step{font-size:11px;letter-spacing:.2em;color:#c9a35f;margin-bottom:6px}
+.guide-bubble .g-text{font-size:14px;line-height:1.65;color:#f5e8cd}
+.guide-bubble .g-next{margin-top:10px;font-size:12px;letter-spacing:.15em;color:#e6bf7e;text-align:right}
 </style>
 </head>
 <body>
@@ -1051,6 +1060,79 @@ function sRumble(){
 function showView(id){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('show'));
   $(id).classList.add('show');
+  // 新手引导：只弹一次，用 localStorage 记录，刷新/重进均不再显示
+  try{
+    if(id==='view-draw' && !localStorage.getItem('hg_guide_draw')){
+      localStorage.setItem('hg_guide_draw','1');
+      setTimeout(()=>showGuide(DRAW_STEPS),2000);   // 等融化转场结束
+    }
+    else if(id==='view-table' && !localStorage.getItem('hg_guide_table')){
+      localStorage.setItem('hg_guide_table','1');
+      setTimeout(()=>showGuide(TABLE_STEPS),500);
+    }
+  }catch(e){}
+}
+
+/* ==== 新手引导系统 ==== */
+const DRAW_STEPS = [
+  {el:'#lawPanel', pos:{l:'14%', t:'20%'}, text:'这里躺着「契约律法」——先读懂规矩，再碰牌堆。每一张王座卡，都有它标好的代价。'},
+  {el:'#deckVisual', text:'点击牌堆，抽一张王座卡。金·银·铜·石，牌面等级越高，契约越凶。'}
+];
+const TABLE_STEPS = [
+  {el:'#tableCards', text:'点击卡牌，查看它的契约任务，决定它的死法。'},
+  {el:'#taskList', text:'这里的任务要在七局内完成——别让契约等太久。'},
+  {el:'#btnRumi', text:'没事干的时候可以点点，但不要连续快速点太多次喔~'},
+  {el:'#btnNext', text:'老板打完一局，点「下一局，再战」让倒计时后退一格。'},
+  {el:'#btnDone', text:'契约达成后，点这里结算，拿保底撤离。'}
+];
+let guideIdx = 0;
+function showGuide(steps){
+  let g = document.getElementById('guideOverlay');
+  if(!g){ g = document.createElement('div'); g.id = 'guideOverlay'; document.body.appendChild(g); }
+  guideIdx = 0;
+  g.onclick = () => {
+    guideIdx++;
+    const s = steps[guideIdx];
+    if(!s){ g.style.display = 'none'; g.innerHTML = ''; return; }
+    renderGuide(g, s, steps.length);
+  };
+  renderGuide(g, steps[0], steps.length);
+  g.style.display = 'block';
+}
+function renderGuide(g, step, total){
+  g.innerHTML = '';
+  const el = document.querySelector(step.el);
+  if(!el){ g.style.display = 'none'; return; }
+  const r = el.getBoundingClientRect();
+  const hl = document.createElement('div');
+  hl.className = 'guide-hl';
+  hl.style.left = (r.left - 6) + 'px';
+  hl.style.top = (r.top - 6) + 'px';
+  hl.style.width = (r.width + 12) + 'px';
+  hl.style.height = (r.height + 12) + 'px';
+
+  const bub = document.createElement('div');
+  bub.className = 'guide-bubble';
+  bub.innerHTML = `<div class="g-step">${guideIdx + 1} / ${total}</div><div class="g-text">${step.text}</div><div class="g-next">点击继续 ▸</div>`;
+
+  const cw = document.documentElement.clientWidth, vh = window.innerHeight;
+  if(step.pos){
+    // 固定位置（紧贴目标侧，小屏幕也可见）
+    bub.style.left = step.pos.l;
+    bub.style.top = step.pos.t;
+    bub.style.transform = 'translate(0,0)';
+  }else{
+    let l = r.left + r.width / 2;
+    l = Math.max(140, Math.min(cw - 140, l));
+    bub.style.left = l + 'px';
+    if(r.top < vh * 0.35){
+      bub.style.top = (r.bottom + 12) + 'px';       // 目标在上方 → 气泡放下方
+    }else{
+      bub.style.bottom = (vh - r.top + 12) + 'px';  // 否则放上方
+    }
+  }
+  g.appendChild(hl);
+  g.appendChild(bub);
 }
 
 function saveName(n){state.name=n;try{localStorage.setItem('sultan_op_name',n)}catch(e){}}
